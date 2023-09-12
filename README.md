@@ -1,12 +1,12 @@
-<<<<<<< HEAD
-# Custo_medio
-=======
-# Svelte + Vite
+# Tabela de Ações 
+  Codigo da ação;
+  Quantidade: soma da quantidade daquelas ações;
+  Preço médio;
+  Valor: total atual do investimento;
+  CNPJ da empresa
 
-This template should help get you started developing with Tauri and Svelte in Vite.
+# Tabela de Ações individuais
+  Os campos: codigo da ação, quantidade, venda ou compra, seu preço, total investido.
 
-## Recommended IDE Setup
-
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer).
-
->>>>>>> 4d9f86b (inicio)
+  Nessa tabela vai aparecer todas as transações feitas da ação selecionada, será um filtro da tabela principal.
+  Seu objetivo é facilitar uma analise, facilitar a conferencia de q os calculos estão certos.

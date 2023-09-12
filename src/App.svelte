@@ -12,7 +12,7 @@
 
   let totalCompra = 0
   let totalVenda = 0
-  let acoes
+  let acoes = []
 
   function isActive() { active = !active }
   
@@ -59,40 +59,59 @@
     console.log(total)
   }*/
 
+
   function calcCompra(info){
+
     const response = info.filter((compra) => compra.tipoMovimentacao == 'Compra')
     totalCompra = response.length
+
   }
 
   function calcVenda(info){
+
     const response = info.filter((venda) => venda.tipoMovimentacao == 'Venda')
     totalVenda = response.length
+
   }
 
   function acoesList(info) {
 
+    let list = info.map( el => { return el.codigoNegociacao })
+    acoes = [ ...new Set(list)]
+    console.log(acoes)
 
-   /* let acoesUnicas = new Map() 
+  }
 
-    info.forEach( acao => {
-      if (!acoesUnicas.has(acao.codigoNegociacao)) {
-        acoesUnicas.set(acao.codigoNegociacao, acao)
-      } 
-    })
+  function sumOfQuantity(acao) {
 
-    console.log("acoesUnicas", acoesUnicas)
-    */
-   let teste = info.map( el => {
-    
-    return el.codigoNegociacao
-   })
+    const response = tableInfo.reduce( (previous, current) => {
+      return current.codigoNegociacao == acao ? previous + current.quantidade : previous 
+    }, 0)
 
-   console.log('codigoNegociacao', teste)
+    return response
+  }
 
-   let teste2 = [ ...new Set(teste)]
+  function totalInvestment(acao) {
 
-   console.log('codigoNegociacao2', teste2)
-   
+    const response = tableInfo.reduce( (previous, current) => {
+      return current.codigoNegociacao == acao ? previous + current.valor : previous 
+    }, 0)
+
+    return parseFloat(response.toFixed(2))
+
+  }
+
+  function averagePrice(acao) {
+
+    const f1 = tableInfo.reduce( (previous, current) => {
+      return current.codigoNegociacao == acao ? previous + (current.quantidade * current.preco) : previous 
+    }, 0)
+
+    const f2 = sumOfQuantity(acao)
+
+    const response = (f1/f2)
+
+    return parseFloat(response.toFixed(2))
 
   }
 
@@ -151,10 +170,37 @@
     {/if}
   </div>
 
+  <hr/><hr>
+  
   <div>
     Quantidade de Compras: {totalCompra} <br>
     Quantidade de Vendas: {totalVenda} <br>
-    Instituições:
+    Ações: {acoes}
+  </div>
+
+  <hr/><hr>
+
+  <div class="table-acoes">
+    <table>
+      <thead>
+        <tr>
+          <th>Ação:</th>
+          <th>Quantidade</th>
+          <th>Preço Médio</th>
+          <th>Valor Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {#each acoes as acao}
+          <tr>
+            <td>{acao}</td>
+            <td>{sumOfQuantity(acao)}</td>
+            <td>{averagePrice(acao)}</td>
+            <td>{totalInvestment(acao)}</td>
+          </tr>
+        {/each}
+      </tbody>
+    </table>
   </div>
 
   

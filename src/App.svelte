@@ -14,7 +14,39 @@
   let totalVenda = 0
   let acoes = []
 
+  let inputProcurar
+  let textInputProcurar
+  let infoAcao = {
+      cnpj: "",
+      codigoNegociacao: "",
+      instituicao: "",
+      mercado: "",
+      nomePregao: "",
+      precoMedio:  0,
+      quantidadeTotal: 0
+    } 
+
+
+
+
   function isActive() { active = !active }
+
+  function procurar() {
+    textInputProcurar = inputProcurar.value
+    const info = tableInfo.find( item => item.codigoNegociacao == "AGRO3F")
+
+    infoAcao = {
+      cnpj: info.cnpj,
+      codigoNegociacao: info.codigoNegociacao,
+      instituicao: info.instituicao,
+      mercado:info.mercado,
+      nomePregao: info.nomePregao,
+      precoMedio: averagePrice(info.codigoNegociacao),
+      quantidadeTotal: sumOfQuantity(info.codigoNegociacao)
+    }
+
+    console.log("infoAcao", infoAcao)
+  }
   
   function readFile(event) {
     file = event.target.files[0]
@@ -157,15 +189,7 @@
               <td>{cell.nomePregao}</td>
             </tr>
           {/each}
-       </tbody>
-
-       <tfoot>
-        <tr>
-          <td>Total</td>
-          <td>R$ {total}</td>
-        </tr>
-       </tfoot>
-        
+       </tbody>        
       </table>
     {/if}
   </div>
@@ -203,6 +227,63 @@
     </table>
   </div>
 
+  <hr><hr>
+
+  <input type="text" class="procurar" bind:this={inputProcurar}>
+  <button on:click={procurar}>{textInputProcurar}</button>
+  <div class="summary-acoes">
+
+    {#if active}
+      <table>
+        <thead>
+          <tr>
+            {#each cabecalho as cell}
+              <th>{cell}</th>
+            {/each}
+          </tr>
+        </thead>
+        <tbody>
+          {#each tableInfo as cell}
+            {#if cell.codigoNegociacao == textInputProcurar}
+              <tr>
+                <td>{cell.data}</td>
+                <td>{cell.tipoMovimentacao}</td>
+                <td>{cell.mercado}</td>
+                <td>{cell.instituicao}</td>
+                <td>{cell.codigoNegociacao}</td>
+                <td>{cell.quantidade}</td>
+                <td>{cell.preco}</td>
+                <td>{cell.valor}</td>
+                <td>{cell.cnpj}</td>
+                <td>{cell.nomePregao}</td>
+              </tr>
+            {/if} 
+          {/each}
+          <tr>
+            <td>Total:</td>
+            <td>{sumOfQuantity(textInputProcurar)}</td>
+          </tr>
+          <tr>
+            <td>Preço Médio:</td>
+            <td>{averagePrice(textInputProcurar)}</td>
+          </tr>
+        </tbody>        
+      </table>
+    {/if}
+
+    <div class="declaracao-texto">
+      {sumOfQuantity(textInputProcurar)} ações -- {textInputProcurar} -- de {infoAcao.nomePregao} , sendo que 10 ações são de bonificações em 2022, ao custo unitário de R$ {averagePrice(textInputProcurar)} , em custódia na corretora {infoAcao.instituicao}
+    </div>
+
+
+
+  </div>
+
+
+  <footer>
+    Criado por Jônatas Alexandrão
+  </footer>
+
   
 
 </main>
@@ -210,13 +291,13 @@
 <style>
   .container-main {
     width: 100%;
-    height: 90vh;
-    display: grid;
+    height: 100%;
+    /* display: grid;
     grid-template-rows: 10% 20% 70%;
     grid-template-columns: 100%;
 
     justify-content: center;
-    align-items: center;
+    align-items: center; */
 
     margin: 0 5rem;
   }
@@ -267,32 +348,20 @@
     align-items: center;
     padding: 2rem;
     overflow: auto;
-  }
+  } 
 
-  .container-table > table {
+  .summary-acoes {
     width: 100%;
     height: 100%;
-    display: block;
-    overflow: auto;
   }
 
-  .container-table > table,
-  .container-table > table th,
-  .container-table > table td {
-    border: .1rem solid #a3a3a3;
-    border-collapse: collapse;
-    
+  .declaracao-texto {
+    width: 100%;
+    height: 100%;
+    border: 2px solid #e2e2e2;
+    padding: 2rem;
+    margin-top: 2rem;
   }
-
-  .container-table > table th,
-  .container-table > table td {
-    padding: .5rem .8rem;
-  }
-
-  .container-table > table th {
-    background-color: rgb(14, 74, 58);
-  }
-  
 
 
  

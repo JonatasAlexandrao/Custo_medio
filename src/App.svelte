@@ -1,13 +1,17 @@
 <script>
 
   import readXlsxFile from 'read-excel-file'
+  import Card from './containers/Card/Card.svelte';
+  import TabelaTeste from './components/TabelaTeste/TabelaTeste.svelte';
 
   let input
   let file 
   let active = false
 
   let cabecalho = []
+  
   let tableInfo = []
+  $: teste = tableInfo
   let total = 0
 
   let totalCompra = 0
@@ -233,7 +237,7 @@
   <button on:click={procurar}>{textInputProcurar}</button>
   <div class="summary-acoes">
 
-    {#if active}
+    
       <table>
         <thead>
           <tr>
@@ -269,7 +273,7 @@
           </tr>
         </tbody>        
       </table>
-    {/if}
+    
 
     <div class="declaracao-texto">
       {sumOfQuantity(textInputProcurar)} ações -- {textInputProcurar} -- de {infoAcao.nomePregao} , sendo que 10 ações são de bonificações em 2022, ao custo unitário de R$ {averagePrice(textInputProcurar)} , em custódia na corretora {infoAcao.instituicao}
@@ -283,6 +287,9 @@
   <footer>
     Criado por Jônatas Alexandrão
   </footer>
+
+
+  <Card><TabelaTeste tableHeader={cabecalho} tableInfo={teste}/></Card>
 
   
 

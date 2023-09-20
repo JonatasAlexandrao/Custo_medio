@@ -1,6 +1,7 @@
 
 <script>
 
+  export let title = "Tabela das Ações"
   export let tableInfo = []
   $: table = tableInfo
   export let stocksListInfo = []
@@ -52,9 +53,11 @@
 
 
 
-<div class="container-table">
-  <!-- <label for="">{acoesList()}</label> -->
-  <button on:click={acoesList}>aaaaaa</button>
+<div class="container-stocks-list-table">
+  <div class="title">
+    <h2>{title}</h2>
+    <button on:click={acoesList}>Ativar</button>
+  </div>
     <table>
      <thead>
       <tr>
@@ -77,4 +80,28 @@
     </table>
 
 </div>
+
+<style>
+  .title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+  .container-stocks-list-table { overflow: auto; }
+
+  .container-stocks-list-table > table tr { 
+    display: grid;
+    justify-content: center;
+    grid-template-columns: minmax(7rem, 10rem) minmax(10rem, 15rem) minmax(10rem, 15rem) minmax(10rem, 15rem) minmax(10rem, 15rem);
+  }
+
+  .container-stocks-list-table > table tr th {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+</style>
 

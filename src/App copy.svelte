@@ -2,7 +2,7 @@
 
   import readXlsxFile from 'read-excel-file'
   import Card from './containers/Card/Card.svelte';
-  import TabelaTeste from './components/TabelaTeste/TabelaTeste.svelte';
+  import TabelaTeste from './components/StoksListTable/StoksListTable.svelte';
 
   let input
   let file 

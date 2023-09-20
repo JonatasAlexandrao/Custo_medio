@@ -3,19 +3,17 @@
   import readXlsxFile from 'read-excel-file'
   import Card from './containers/Card/Card.svelte';
   import Table from './components/TradingTable/TradingTable.svelte';
-  import StoksListTable from './components/StoksListTable/StoksListTable.svelte';
+  import StoksListTable from './components/StocksListTable/StocksListTable.svelte';
+  import SearchStocks from './components/SearchStocks/SearchStocks.svelte';
 
 
   let input
   let file
 
-  let tableHeader = []
   let tableInfo = []
   
 
   function formatInfo(data) {
-    tableHeader = data[0]
-
 
     data.forEach(element => {
       tableInfo.push({
@@ -54,7 +52,6 @@
   }
 
   function clearTable() {
-    tableHeader = []
     tableInfo = []
   }
 
@@ -74,11 +71,47 @@
     
   </div>
   
-  <Card title="Tabela de Negociações">
-    <Table className="container-table" tableHeader={tableHeader} tableInfo={tableInfo} />
+  <Card>
+    <Table tableInfo={tableInfo} />
   </Card>
 
-  <Card title="Tabela das Ações">
+  <Card>
     <StoksListTable tableInfo={tableInfo} />
   </Card>
+
+  <Card>
+    <SearchStocks />
+  </Card>
 </main>
+
+<style>
+  .container-main {
+    width: 100%;
+    height: 100%;
+  }
+
+  .container-main > h1 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .search-file {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 1rem;
+
+    border: 2px solid #fff;
+    border-radius: .5rem;
+    background-color: #2f2f2f;
+
+    font-size: 2rem;
+  }
+  .search-file > label {
+    margin-bottom: .5rem;
+  }
+
+
+</style>

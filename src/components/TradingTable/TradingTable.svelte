@@ -1,8 +1,10 @@
 
 <script>
-  export let tableHeader = ["Data", "Movimentação", "Mercado", "Instituição", "Código", "Qtd", "Preço", "Valor", "CNPJ", "Nome no Pregão"]
+  
   export let tableInfo = []
   $: keys = tableInfo.length ? Object.keys(tableInfo[0]) : []
+
+  let tableHeader = ["Data", "Movimentação", "Mercado", "Instituição", "Código", "Qtd", "Preço", "Valor", "CNPJ", "Nome no Pregão"]
 
   
 </script>

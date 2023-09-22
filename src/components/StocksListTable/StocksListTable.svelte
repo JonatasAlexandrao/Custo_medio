@@ -4,43 +4,43 @@
   export let title = "Tabela das Ações"
   export let tableInfo = []
   $: table = tableInfo
-  export let stocksListInfo = []
+  let stocksListInfo = []
   const stocksListHeader = ["Num","Ações", "Quantidade", "Preço Médio", "Valor Total"]
 
 
-  function acoesList() {
+  function stocksList() {
 
     let list = table.map( el => { return el.codigoNegociacao })
     stocksListInfo = [ ...new Set(list)]
 
   }
 
-  function sumOfQuantity(acao) {
+  function sumOfQuantity(stock) {
 
     const response = tableInfo.reduce( (previous, current) => {
-      return current.codigoNegociacao == acao ? previous + current.quantidade : previous 
+      return current.codigoNegociacao == stock ? previous + current.quantidade : previous 
     }, 0)
 
     return response
   }
 
-  function totalInvestment(acao) {
+  function totalInvestment(stock) {
 
     const response = tableInfo.reduce( (previous, current) => {
-      return current.codigoNegociacao == acao ? previous + current.valor : previous 
+      return current.codigoNegociacao == stock ? previous + current.valor : previous 
     }, 0)
 
     return parseFloat(response.toFixed(2))
 
   }
 
-  function averagePrice(acao) {
+  function averagePrice(stock) {
 
     const f1 = tableInfo.reduce( (previous, current) => {
-      return current.codigoNegociacao == acao ? previous + (current.quantidade * current.preco) : previous 
+      return current.codigoNegociacao == stock ? previous + (current.quantidade * current.preco) : previous 
     }, 0)
 
-    const f2 = sumOfQuantity(acao)
+    const f2 = sumOfQuantity(stock)
 
     const response = (f1/f2)
 
@@ -56,7 +56,7 @@
 <div class="container-stocks-list-table">
   <div class="title">
     <h2>{title}</h2>
-    <button on:click={acoesList}>Ativar</button>
+    <button on:click={stocksList}>Ativar</button>
   </div>
     <table>
      <thead>

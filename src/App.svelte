@@ -80,7 +80,7 @@
   </Card>
 
   <Card>
-    <SearchStocks />
+    <SearchStocks tableInfo={tableInfo}/>
   </Card>
 </main>
 

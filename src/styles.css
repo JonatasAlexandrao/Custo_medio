@@ -116,6 +116,43 @@ footer {
   
 }
 
+.-table-base tr {
+  display: grid;
+  justify-content: center;
+
+  grid-template-columns: minmax(10rem, 10% ) minmax(11rem, 10% ) minmax(10rem, 10% ) minmax(14rem, 14% ) minmax(10rem, 10% ) minmax(10rem, 10% ) minmax(10rem, 10% ) minmax(12rem, 12% ) minmax(15rem, 14%);
+}
+
+.-table-base tr th {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.-table-base td {
+  align-items: center;
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.-table-base th:nth-child(2) {
+  font-size: 1.3rem;
+}
+
+
+.-table-base td:nth-child(3),
+.-table-base td:nth-child(4),
+.-table-base td:nth-child(9) {
+  font-size: 1.4rem;
+}
+.-table-base td:nth-child(10),
+.-table-base th:nth-child(10) {
+  display: none;
+} 
+
 
 
 @media (prefers-color-scheme: dark) {

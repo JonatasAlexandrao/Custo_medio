@@ -30,7 +30,9 @@
       return current.codigoNegociacao == stock ? previous + current.valor : previous 
     }, 0)
 
-    return parseFloat(response.toFixed(2))
+    const responseFormated = response.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+
+    return responseFormated
 
   }
 
@@ -43,8 +45,9 @@
     const f2 = sumOfQuantity(stock)
 
     const response = (f1/f2)
+    const responseFormated = response.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
 
-    return parseFloat(response.toFixed(2))
+    return responseFormated
 
   }
 
@@ -59,24 +62,24 @@
     <button on:click={stocksList}>Ativar</button>
   </div>
     <table>
-     <thead>
-      <tr>
-        {#each stocksListHeader as columns}
-          <th>{columns}</th>
-        {/each}
-      </tr>
-     </thead>
-     <tbody>
-      {#each stocksListInfo as stocks, index}
+      <thead>
         <tr>
-          <td>{index+1}</td>
-          <td>{stocks}</td>
-          <td>{sumOfQuantity(stocks)}</td>
-          <td>{averagePrice(stocks)}</td>
-          <td>{totalInvestment(stocks)}</td>
+          {#each stocksListHeader as columns}
+            <th>{columns}</th>
+          {/each}
         </tr>
-      {/each}
-    </tbody>
+      </thead>
+      <tbody>
+        {#each stocksListInfo as stocks, index}
+          <tr>
+            <td>{index+1}</td>
+            <td>{stocks}</td>
+            <td>{sumOfQuantity(stocks)}</td>
+            <td>{averagePrice(stocks)}</td>
+            <td>{totalInvestment(stocks)}</td>
+          </tr>
+        {/each}
+      </tbody>
     </table>
 
 </div>

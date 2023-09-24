@@ -13,7 +13,7 @@
     instituicao: "",
     mercado: "",
     nomePregao: "",
-    precoMedio: 0,
+    precoMedio: "",
     quantidadeTotal: ""
   }
   //let stocksListInfo = []
@@ -42,7 +42,7 @@
       return current.codigoNegociacao == stocks ? previous + current.valor : previous 
     }, 0)
 
-    return parseFloat(response.toFixed(2))
+    return realCurrenc(response)
 
   }
 
@@ -56,7 +56,7 @@
 
     const response = (f1/f2)
 
-    return parseFloat(response.toFixed(2))
+    return realCurrenc(response)
 
   }
 
@@ -76,12 +76,17 @@
     console.log("infoAcao", infoStocks)
   }
 
-
   function searchForStocks() {
     if (selectComponent.value) {
       textToSearch = selectComponent.value
       searchForStockInfo()
     }
+  }
+
+  function realCurrenc(num) {
+    const response = num.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+
+    return response
   }
 
 
@@ -97,7 +102,7 @@
   <button on:click={searchForStocks}>Buscar</button>
 
   <div class="container-search-stocks">
-    <table>
+    <table class="-table-base">
       <thead>
         <tr>
           {#each tableHeader as columns}
@@ -115,37 +120,52 @@
               <td>{rows.instituicao}</td>
               <td>{rows.codigoNegociacao}</td>
               <td>{rows.quantidade}</td>
-              <td>{rows.preco}</td>
-              <td>{rows.valor}</td>
+              <td>{realCurrenc(rows.preco)}</td>
+              <td>{realCurrenc(rows.valor)}</td>
               <td>{rows.cnpj}</td>
               <td>{rows.nomePregao}</td>
             </tr>     
           {/if}
         {/each}
       </tbody>        
-    </table>
-    <br>
-    <table>
-      <thead>
-        <tr>
-          <th>Quantidade</th>
-          <th>Preço Médio</th>
-          <th>Valor Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{sumOfQuantity(textToSearch)}</td>
-          <td>{averagePrice(textToSearch)}</td>
-          <td>{totalInvestment(textToSearch)}</td>
-        </tr>
-      </tbody>
-    </table>
+    </table>    
+  </div>
 
-    <div class="declaracao-texto">
-      {sumOfQuantity(textToSearch)} ações -- {textToSearch} -- de {infoStocks.nomePregao}, sendo que 10 ações são de bonificações em 2022, ao custo unitário de R$ {averagePrice(textToSearch)} , em custódia na corretora {infoStocks.instituicao}
-    </div>
+  <table class="calculations-table">
+    <thead>
+      <tr>
+        <th>Quantidade</th>
+        <th>Preço Médio</th>
+        <th>Valor Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{sumOfQuantity(textToSearch)}</td>
+        <td>{averagePrice(textToSearch)}</td>
+        <td>{totalInvestment(textToSearch)}</td>
+      </tr>
+    </tbody>
+  </table>
 
+  <div class="declaration-text">
+    {sumOfQuantity(textToSearch)} ações -- {textToSearch} -- de {infoStocks.nomePregao}, ao custo unitário de R$ {averagePrice(textToSearch)}, em custódia na corretora {infoStocks.instituicao}.
   </div>
 
 </div>
+
+<style>
+  .container-search-stocks {
+    overflow: auto;
+    margin-bottom: 2rem;
+  }
+  .calculations-table {
+    margin-bottom: 2rem;
+  }
+  .declaration-text {
+    padding: 1rem;
+    border: .2rem solid #a3a3a3;
+    border-radius: .2rem;
+  }
+
+</style>

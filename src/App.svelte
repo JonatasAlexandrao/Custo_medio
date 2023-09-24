@@ -17,17 +17,17 @@
 
     data.forEach(element => {
       tableInfo.push({
-          data: element[0], 
-          tipoMovimentacao: element[1],
-          mercado: element[2],
-          instituicao: element[3],
-          codigoNegociacao: element[4],
-          quantidade: element[5],
-          preco: element[6],
-          valor: element[7],
-          cnpj: element[8],
-          nomePregao: element[9]
-        })
+        data: element[0], 
+        tipoMovimentacao: element[1],
+        mercado: element[2],
+        instituicao: element[3],
+        codigoNegociacao: element[4],
+        quantidade: element[5],
+        preco: element[6],
+        valor: element[7],
+        cnpj: element[8],
+        nomePregao: element[9]
+      })
     });
     
     tableInfo.shift()

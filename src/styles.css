@@ -123,6 +123,10 @@ footer {
   grid-template-columns: minmax(10rem, 10% ) minmax(11rem, 10% ) minmax(10rem, 10% ) minmax(14rem, 14% ) minmax(10rem, 10% ) minmax(10rem, 10% ) minmax(10rem, 10% ) minmax(12rem, 12% ) minmax(15rem, 14%);
 }
 
+.-table-base tr:hover {
+  background-color: rgba(163, 163, 163, .3);
+}
+
 .-table-base tr th {
   display: flex;
   justify-content: center;

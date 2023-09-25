@@ -99,6 +99,10 @@
     grid-template-columns: minmax(7rem, 10rem) minmax(10rem, 15rem) minmax(10rem, 15rem) minmax(10rem, 15rem) minmax(10rem, 15rem);
   }
 
+  .container-stocks-list-table > table tr:hover {
+    background-color: rgba(163, 163, 163, .3);
+  }
+
   .container-stocks-list-table > table tr th {
     display: flex;
     justify-content: center;

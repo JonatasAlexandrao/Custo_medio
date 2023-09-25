@@ -6,7 +6,6 @@
   let tableHeader = ["Data", "Movimentação", "Mercado", "Instituição", "Código", "Qtd", "Preço", "Valor", "CNPJ", "Nome no Pregão"]
 
   let textToSearch = ""
-  //$: filterTable = textToSearch
   let infoStocks = {
     cnpj: "",
     codigoNegociacao: "",
@@ -16,8 +15,22 @@
     precoMedio: "",
     quantidadeTotal: ""
   }
-  //let stocksListInfo = []
-  let selectComponent 
+  let selectComponent
+  let declarationText 
+
+  let quantity = "00"
+  let averagePrice = "00,00"
+  let totalInvestment = "00,00"
+
+  function searchForStocks() {
+    if (selectComponent.value) {
+      textToSearch = selectComponent.value
+      searchForStockInfo()
+      quantity = sumOfQuantity(textToSearch)
+      averagePrice = calcTotalInvestment(textToSearch)
+      totalInvestment = calcAveragePrice(textToSearch)
+    }
+  }
 
   function createStocksList(table) {
 
@@ -36,7 +49,7 @@
     return response
   }
 
-  function totalInvestment(stocks) {
+  function calcTotalInvestment(stocks) {
 
     const response = tableInfo.reduce( (previous, current) => {
       return current.codigoNegociacao == stocks ? previous + current.valor : previous 
@@ -46,7 +59,7 @@
 
   }
 
-  function averagePrice(stocks) {
+  function calcAveragePrice(stocks) {
 
     const f1 = tableInfo.reduce( (previous, current) => {
       return current.codigoNegociacao == stocks ? previous + (current.quantidade * current.preco) : previous 
@@ -69,18 +82,11 @@
       instituicao: info.instituicao,
       mercado:info.mercado,
       nomePregao: info.nomePregao,
-      precoMedio: averagePrice(info.codigoNegociacao),
+      precoMedio: calcAveragePrice(info.codigoNegociacao),
       quantidadeTotal: sumOfQuantity(info.codigoNegociacao)
     }
 
     console.log("infoAcao", infoStocks)
-  }
-
-  function searchForStocks() {
-    if (selectComponent.value) {
-      textToSearch = selectComponent.value
-      searchForStockInfo()
-    }
   }
 
   function realCurrenc(num) {
@@ -88,6 +94,13 @@
 
     return response
   }
+
+  function copyText(text="") {
+    if(text) { 
+      navigator.clipboard.writeText(text)
+    }
+  }
+
 
 
 </script>
@@ -141,16 +154,21 @@
     </thead>
     <tbody>
       <tr>
-        <td>{sumOfQuantity(textToSearch)}</td>
-        <td>{averagePrice(textToSearch)}</td>
-        <td>{totalInvestment(textToSearch)}</td>
+        <td on:click={() => copyText(quantity)}>{quantity}</td>
+        <td on:click={() => copyText(averagePrice)}>{averagePrice}</td>
+        <td on:click={() => copyText(totalInvestment)}>{totalInvestment}</td>
       </tr>
     </tbody>
   </table>
 
   <div class="declaration-text">
-    {sumOfQuantity(textToSearch)} ações -- {textToSearch} -- de {infoStocks.nomePregao}, ao custo unitário de R$ {averagePrice(textToSearch)}, em custódia na corretora {infoStocks.instituicao}.
+    <p bind:this={declarationText}>
+      {quantity} ações -- {textToSearch} -- de {infoStocks.nomePregao}, ao custo unitário de R$ {averagePrice}, em custódia na corretora {infoStocks.instituicao}.
+    </p>
+    <button on:click={()=> copyText(declarationText.innerText)}>Copiar</button>
   </div>
+
+  
 
 </div>
 
@@ -163,9 +181,29 @@
     margin-bottom: 2rem;
   }
   .declaration-text {
-    padding: 1rem;
+    padding: 2rem;
     border: .2rem solid #a3a3a3;
     border-radius: .2rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
+
+  .declaration-text > p {
+    text-align: justify;
+    margin-bottom: 1rem;
+  }
+
+  .calculations-table tbody > tr td {
+    cursor: pointer;
+
+  }
+  .calculations-table tbody > tr td:hover {
+    background-color: rgba(163, 163, 163, .3);
+  }
+
+  
 
 </style>

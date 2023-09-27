@@ -7,7 +7,7 @@
 
   let tableHeader = ["Data", "Movimentação", "Mercado", "Instituição", "Código", "Qtd", "Preço", "Valor", "CNPJ", "Nome no Pregão"]
 
-  function realCurrenc(num) {
+  function realCurrency(num) {
     const response = num.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
 
     return response
@@ -44,8 +44,8 @@
           <td>{rows.instituicao}</td>
           <td>{rows.codigoNegociacao}</td>
           <td>{rows.quantidade}</td>
-          <td>{realCurrenc(rows.preco)}</td>
-          <td>{realCurrenc(rows.valor)}</td>
+          <td>{realCurrency(rows.preco)}</td>
+          <td>{realCurrency(rows.valor)}</td>
           <td>{rows.cnpj}</td>
           <td>{rows.nomePregao}</td>
         </tr>   
@@ -57,7 +57,12 @@
 
 <style>
   .container-table {
+    width: 100%;
     height: 3rem;
+    display: grid;
+    flex-direction: column;
+    justify-content: center;
+
     overflow: hidden;
     
   }
@@ -72,6 +77,36 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
+  }
+
+  .container-table .table-base tr {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 
+      minmax(10rem, 14rem) /*Data*/
+      minmax(13rem, 13rem) /*Movimentação*/
+      minmax(10rem, 12rem) /*Mercado*/
+      minmax(11rem, 25rem) /*Instituição*/
+      minmax(10rem, 12rem) /*Código*/
+      minmax(7rem, 10rem)  /*Qtd*/
+      minmax(10rem, 15rem) /*Preço*/
+      minmax(10rem, 15rem) /*Valor*/
+      minmax(15rem, 18rem) /*cnpj*/
+      minmax(18rem, 25rem) /*Nome no Pregão*/
+    ;
+  }
+
+  .container-table .table-base tr:hover {
+    background-color: rgba(163, 163, 163, .3);
+  }
+
+  .container-table .table-base tr td:nth-child(4),
+  .table-base tr td:nth-child(9) {
+    font-size: 1.4rem;
+  }
+
+  .container-table .table-base tr td:nth-child(10) {
+    font-size: 1.2rem;
   }
  
 </style>

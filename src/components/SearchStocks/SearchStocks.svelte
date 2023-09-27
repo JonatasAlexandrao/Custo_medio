@@ -114,7 +114,7 @@
   </select>
   <button on:click={searchForStocks}>Buscar</button>
 
-  <div class="container-search-stocks">
+  <div class="container-search-stocks container-table">
     <table class="-table-base">
       <thead>
         <tr>
@@ -142,24 +142,26 @@
         {/each}
       </tbody>        
     </table>    
-  </div>
+ 
 
-  <table class="calculations-table">
-    <thead>
-      <tr>
-        <th>Quantidade</th>
-        <th>Preço Médio</th>
-        <th>Valor Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td on:click={() => copyText(quantity)}>{quantity}</td>
-        <td on:click={() => copyText(averagePrice)}>{averagePrice}</td>
-        <td on:click={() => copyText(totalInvestment)}>{totalInvestment}</td>
-      </tr>
-    </tbody>
-  </table>
+    <table class="calculations-table">
+      <thead>
+        <tr>
+          <th>Quantidade</th>
+          <th>Preço Médio</th>
+          <th>Valor Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td on:click={() => copyText(quantity)}>{quantity}</td>
+          <td on:click={() => copyText(averagePrice)}>{averagePrice}</td>
+          <td on:click={() => copyText(totalInvestment)}>{totalInvestment}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
 
   <div class="declaration-text">
     <p bind:this={declarationText}>
@@ -176,7 +178,19 @@
   .container-search-stocks {
     overflow: auto;
     margin-bottom: 2rem;
+
+    
   }
+
+  .container-table {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: center;
+  }
+
   .calculations-table {
     margin-bottom: 2rem;
   }
@@ -194,6 +208,10 @@
   .declaration-text > p {
     text-align: justify;
     margin-bottom: 1rem;
+  }
+
+  .calculations-table {
+    width: 100%;
   }
 
   .calculations-table tbody > tr td {

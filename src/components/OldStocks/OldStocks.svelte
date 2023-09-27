@@ -51,6 +51,7 @@
     <h2>{title}</h2>
     <button>Adicionar</button>
   </div>
+  <div class="container-table">
     <table>
       <thead>
         <tr>
@@ -85,7 +86,8 @@
           </tr>
       </tbody>
     </table>
-
+  </div>
+    
 </div>
 
 
@@ -112,6 +114,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .container-old-stocks .container-table {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
   }
   
 

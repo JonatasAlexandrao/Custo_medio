@@ -61,6 +61,8 @@
     <h2>{title}</h2>
     <button on:click={stocksList}>Ativar</button>
   </div>
+
+  <div class="container-table">
     <table>
       <thead>
         <tr>
@@ -81,6 +83,8 @@
         {/each}
       </tbody>
     </table>
+  </div>
+    
 
 </div>
 
@@ -93,17 +97,28 @@
 
   .container-stocks-list-table { overflow: auto; }
 
-  .container-stocks-list-table > table tr { 
+  .container-stocks-list-table {
+    width: 100%;
+  }
+
+  .container-stocks-list-table .container-table {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .container-stocks-list-table table tr { 
     display: grid;
     justify-content: center;
     grid-template-columns: minmax(7rem, 10rem) minmax(10rem, 15rem) minmax(10rem, 15rem) minmax(10rem, 15rem) minmax(10rem, 15rem);
   }
 
-  .container-stocks-list-table > table tr:hover {
+  .container-stocks-list-table table tr:hover {
     background-color: rgba(163, 163, 163, .3);
   }
 
-  .container-stocks-list-table > table tr th {
+  .container-stocks-list-table table tr th {
     display: flex;
     justify-content: center;
     align-items: center;

@@ -1,12 +1,8 @@
-<script>
-
-  
+<script>  
 </script>
 
 <div class="card-container">
-
   <slot></slot>
-  
 </div>
 
 <style>
@@ -22,5 +18,7 @@
     box-shadow: .5rem .5rem .5rem .3rem rgba(0, 0, 0, 0.2);
     background-color: #2f2f2f;
   }
+
+
 </style>
 

@@ -2,9 +2,10 @@
   
   import readXlsxFile from 'read-excel-file'
   import Card from './containers/Card/Card.svelte';
-  import Table from './components/TradingTable/TradingTable.svelte';
-  import StoksListTable from './components/StocksListTable/StocksListTable.svelte';
+  import TradingTable from './components/TradingTable/TradingTable.svelte';
+  import StocksListTable from './components/StocksListTable/StocksListTable.svelte';
   import SearchStocks from './components/SearchStocks/SearchStocks.svelte';
+  import OldStocks from './components/OldStocks/OldStocks.svelte';
 
 
   let input
@@ -72,11 +73,15 @@
   </div>
   
   <Card>
-    <Table tableInfo={tableInfo} />
+    <TradingTable tableInfo={tableInfo} />
   </Card>
 
   <Card>
-    <StoksListTable tableInfo={tableInfo} />
+    <OldStocks />
+  </Card>
+
+  <Card>
+    <StocksListTable tableInfo={tableInfo} />
   </Card>
 
   <Card>

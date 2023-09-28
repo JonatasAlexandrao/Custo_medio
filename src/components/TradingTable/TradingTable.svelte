@@ -18,14 +18,12 @@
 </script>
 
 
-
+<div class="trading-table-title">
+  <h2>{title}</h2>
+  <button on:click={ () => maximize = !maximize }>Abrir/fechar</button>
+</div>
 
 <div class="container-table" class:-active={maximize}>
-
-  <div class="title">
-    <h2>{title}</h2>
-    <button on:click={ () => maximize = !maximize }>Abrir/fechar</button>
-  </div>
 
   <table class="table-base">
     <thead>
@@ -56,12 +54,18 @@
 </div>
 
 <style>
+
+  .trading-table-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
   .container-table {
     width: 100%;
-    height: 3rem;
+    height: 0;
     display: grid;
-    flex-direction: column;
-    justify-content: center;
 
     overflow: hidden;
     
@@ -72,11 +76,8 @@
     overflow: auto;
   }
 
-  .container-table .title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
+  .container-table .table-base {
+    justify-self: center;
   }
 
   .container-table .table-base tr {
@@ -85,14 +86,14 @@
     grid-template-columns: 
       minmax(10rem, 14rem) /*Data*/
       minmax(13rem, 13rem) /*Movimentação*/
-      minmax(10rem, 12rem) /*Mercado*/
-      minmax(11rem, 25rem) /*Instituição*/
+      /*minmax(10rem, 12rem) /*Mercado*/
+      minmax(11rem, 20rem) /*Instituição*/
       minmax(10rem, 12rem) /*Código*/
       minmax(7rem, 10rem)  /*Qtd*/
       minmax(10rem, 15rem) /*Preço*/
       minmax(10rem, 15rem) /*Valor*/
-      minmax(15rem, 18rem) /*cnpj*/
-      minmax(18rem, 25rem) /*Nome no Pregão*/
+      minmax(15rem, 15rem) /*cnpj*/
+      /*minmax(18rem, 25rem) /*Nome no Pregão*/
     ;
   }
 
@@ -102,11 +103,14 @@
 
   .container-table .table-base tr td:nth-child(4),
   .table-base tr td:nth-child(9) {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
 
+  .container-table .table-base tr th:nth-child(3),
+  .container-table .table-base tr td:nth-child(3),
+  .container-table .table-base tr th:nth-child(10),
   .container-table .table-base tr td:nth-child(10) {
-    font-size: 1.2rem;
+    display: none;
   }
  
 </style>

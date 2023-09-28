@@ -6,12 +6,16 @@
   $: table = tableInfo
   let stocksListInfo = []
   const stocksListHeader = ["Num","Ações", "Quantidade", "Preço Médio", "Valor Total"]
+  let maximize
 
 
   function stocksList() {
 
-    let list = table.map( el => { return el.codigoNegociacao })
-    stocksListInfo = [ ...new Set(list)]
+    maximize = !maximize
+    if(maximize) {
+      let list = table.map( el => { return el.codigoNegociacao })
+      stocksListInfo = [ ...new Set(list)]
+    }
 
   }
 
@@ -59,10 +63,10 @@
 <div class="container-stocks-list-table">
   <div class="title">
     <h2>{title}</h2>
-    <button on:click={stocksList}>Ativar</button>
+    <button on:click={stocksList}>Abrir/Fechar</button>
   </div>
 
-  <div class="container-table">
+  <div class="container-table" class:-active={maximize}>
     <table>
       <thead>
         <tr>
@@ -101,11 +105,21 @@
     width: 100%;
   }
 
-  .container-stocks-list-table .container-table {
+  .container-table {
     width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
+    height: 0;
+    display: grid;
+    overflow: hidden;
+    /* justify-content: center; */
+  }
+
+  .container-table.-active {
+    height: auto;
+    overflow: auto;
+  }
+
+  .container-table table {
+    justify-self: center;
   }
 
   .container-stocks-list-table table tr { 

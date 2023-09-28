@@ -2,6 +2,7 @@
 
   export let title = "Ações Antigas"
   let tableInfo = []
+  let maximize = false
 
   const stocksListHeader = ["Num","Ações", "Quantidade", "Preço Médio", "Valor Total"]
 
@@ -45,12 +46,13 @@
 
 </script>
 
+<div class="old-stocks-title">
+  <h2>{title}</h2>
+  <button on:click={ () => maximize = !maximize }>Abrir/Fechar</button>
+</div>
 
-<div class="container-old-stocks">
-  <div class="title">
-    <h2>{title}</h2>
-    <button>Adicionar</button>
-  </div>
+<div class="container-old-stocks" class:-active={maximize}>
+  
   <div class="container-table">
     <table>
       <thead>
@@ -92,25 +94,37 @@
 
 
 <style>
-  .title {
+  .old-stocks-title {
     display: flex;
     justify-content: space-between;
     margin-bottom: 1rem;
   }
+  
 
-  .container-old-stocks { overflow: auto; }
+  .container-old-stocks { 
+    width: 100%;
+    height: 0;
+    display: grid;
 
-  .container-old-stocks > table tr { 
+    overflow: hidden;
+  }
+
+  .container-old-stocks.-active { 
+    height: auto;
+    overflow: auto;
+  }
+
+  .container-old-stocks table tr { 
     display: grid;
     justify-content: center;
     grid-template-columns: minmax(7rem, 10rem) minmax(10rem, 15rem) minmax(10rem, 15rem) minmax(10rem, 15rem) minmax(10rem, 15rem);
   }
 
-  .container-old-stocks > table tr:hover {
+  .container-old-stocks table tr:hover {
     background-color: rgba(163, 163, 163, .3);
   }
 
-  .container-old-stocks > table tr th {
+  .container-old-stocks table tr th {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -119,9 +133,14 @@
   .container-old-stocks .container-table {
     width: 100%;
     height: 100%;
-    display: flex;
-    justify-content: center;
+    display: grid;
+    
   }
+
+  .container-table table {
+    justify-self: center;
+  }
+  
   
 
 

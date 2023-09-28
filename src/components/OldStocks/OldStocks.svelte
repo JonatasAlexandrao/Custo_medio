@@ -63,23 +63,29 @@
         </tr>
       </thead>
       <tbody>
-          <tr>
-            <td><input type="text"></td>
+          <tr class="input-row">
+            <td></td>
             <td><input type="text"></td>
             <td><input type="text"></td>
             <td><input type="text"></td>
             <td><input type="text"></td>
           </tr>
+
+          <br>
+          <div>
+            <button>Adicionar</button>
+            <button>Remover</button>
+          </div>
           <br>
 
-          <tr>
+          <tr class="added-row">
             <td>a</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
           </tr>
-          <tr>
+          <tr class="added-row">
             <td>a</td>
             <td></td>
             <td></td>
@@ -120,7 +126,21 @@
     grid-template-columns: minmax(7rem, 10rem) minmax(10rem, 15rem) minmax(10rem, 15rem) minmax(10rem, 15rem) minmax(10rem, 15rem);
   }
 
-  .container-old-stocks table tr:hover {
+  .container-old-stocks table .input-row td {
+    padding: .2rem;
+  }
+
+  .container-old-stocks table tr td input {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(227, 230, 229, 0.2);
+    border-radius: 0;
+  }
+  
+  .container-old-stocks table tr td input:focus {
+    outline: rgb(226, 226, 226) .2rem solid;
+  }
+  .container-old-stocks table .added-row:hover {
     background-color: rgba(163, 163, 163, .3);
   }
 

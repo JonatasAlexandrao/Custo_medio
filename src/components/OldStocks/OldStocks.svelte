@@ -4,43 +4,63 @@
   let tableInfo = []
   let maximize = false
 
-  const stocksListHeader = ["Num","Ações", "Quantidade", "Preço Médio", "Valor Total"]
+  let acoesInput = ""
+  let quantidadeInput = ""
+  let precoMedioInput = ""
+  let valorTotalInput = ""
+
+  let listOldStocks = [{
+    acoes: "",
+    quantidade: "",
+    precoMedio: "",
+    valorTotal: ""
+  }]
+
+
+  const stocksListHeader = ["","Ações", "Quantidade", "Preço Médio", "Valor Total"]
 
 
 
-  function sumOfQuantity(stock) {
+  function addStocksClick() {
 
-    const response = tableInfo.reduce( (previous, current) => {
-      return current.codigoNegociacao == stock ? previous + current.quantidade : previous 
-    }, 0)
+    const repeatedItem = listOldStocks.find(item => {
+      return item.acoes == acoesInput
+    })
 
-    return response
+    const hasContent = acoesInput ? true : false
+    const uniqueItem = !repeatedItem ? true : false
+
+    
+
+    if(hasContent) {
+      if(uniqueItem) {
+        listOldStocks = [...listOldStocks, {
+          acoes: acoesInput,
+          quantidade: quantidadeInput,
+          precoMedio: precoMedioInput,
+          valorTotal: valorTotalInput
+        }]
+
+        acoesInput = ""
+      }
+    }
+
+    
+    console.log("listOldStocks", uniqueItem)
   }
 
-  function totalInvestment(stock) {
+  function selectedRow(item) {
+    console.log("item", item)
+    console.log("row", item.target.parentElement.id)
+    console.log("inputRadio", item.target.parentElement.cells[0].firstChild)
 
-    const response = tableInfo.reduce( (previous, current) => {
-      return current.codigoNegociacao == stock ? previous + current.valor : previous 
-    }, 0)
 
-    const responseFormated = response.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+    const row = item.target.parentElement
+    const rowID = item.target.parentElement.id
+    const inputRadio = item.target.parentElement.cells[0].firstChild
 
-    return responseFormated
-
-  }
-
-  function averagePrice(stock) {
-
-    const f1 = tableInfo.reduce( (previous, current) => {
-      return current.codigoNegociacao == stock ? previous + (current.quantidade * current.preco) : previous 
-    }, 0)
-
-    const f2 = sumOfQuantity(stock)
-
-    const response = (f1/f2)
-    const responseFormated = response.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
-
-    return responseFormated
+    inputRadio.checked = !inputRadio.checked
+  
 
   }
 
@@ -65,39 +85,34 @@
       <tbody>
           <tr class="input-row">
             <td></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
+            <td><input type="text" bind:value={acoesInput}></td>
+            <td><input type="text" bind:value={quantidadeInput}></td>
+            <td><input type="text" bind:value={precoMedioInput}></td>
+            <td><input type="text" bind:value={valorTotalInput}></td>
           </tr>
 
           <br>
           <div>
-            <button>Adicionar</button>
+            <button on:click={addStocksClick}>Adicionar</button>
             <button>Remover</button>
           </div>
           <br>
 
-          <tr class="added-row">
-            <td>a</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr class="added-row">
-            <td>a</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          {#each listOldStocks as data}
+            <tr class="added-row" on:click={selectedRow} id={"row" + data.acoes}>
+              <td><input type="radio" name="listOldStocks" id={data.acoes}></td>
+              <td>{data.acoes}</td>
+              <td>{data.quantidade}</td>
+              <td>{data.precoMedio}</td>
+              <td>{data.valorTotal}</td>
+            </tr>
+          {/each}
+
       </tbody>
     </table>
   </div>
     
 </div>
-
 
 <style>
   .old-stocks-title {
@@ -120,10 +135,27 @@
     overflow: auto;
   }
 
+  .container-old-stocks .container-table {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    
+  }
+
+  .container-table table {
+    justify-self: center;
+  }
+
   .container-old-stocks table tr { 
     display: grid;
     justify-content: center;
     grid-template-columns: minmax(7rem, 10rem) minmax(10rem, 15rem) minmax(10rem, 15rem) minmax(10rem, 15rem) minmax(10rem, 15rem);
+  }
+
+  .container-old-stocks table tr th {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .container-old-stocks table .input-row td {
@@ -140,25 +172,26 @@
   .container-old-stocks table tr td input:focus {
     outline: rgb(226, 226, 226) .2rem solid;
   }
+  
+
   .container-old-stocks table .added-row:hover {
     background-color: rgba(163, 163, 163, .3);
   }
 
-  .container-old-stocks table tr th {
+  .container-table table .added-row td {
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
-  .container-old-stocks .container-table {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    
+  .container-table table .added-row td input{
+    width: 70%;
+    height: 70%;
+    box-shadow: none;
   }
 
-  .container-table table {
-    justify-self: center;
+  .container-old-stocks table .added-row td input:focus {
+    outline-style: none;
   }
   
   

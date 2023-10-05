@@ -2,56 +2,94 @@
   
   import readXlsxFile from 'read-excel-file'
   import { list } from '../../stores/stores';
+  import { listNegotiations } from '../../stores/stores';
+
+  export let text = ""
+  export let spreadsheet = ""
 
   let input
   let file
-
-  let tableInfo = []
   
 
-  function formatInfo(data) {
-
-    data.forEach(element => {
-      tableInfo.push({
-        data: element[0], 
-        tipoMovimentacao: element[1],
-        mercado: element[2],
-        instituicao: element[3],
-        codigoNegociacao: element[4],
-        quantidade: element[5],
-        preco: element[6],
-        valor: element[7],
-        cnpj: element[8],
-        nomePregao: element[9]
-      })
-    });
-    
-    tableInfo.shift()
-    console.log('tableInfo', tableInfo)
-    $list = tableInfo
-
-    console.log('$list', $list)
-
-  }
 
   function readFile(event) {
 
-    clearTable()
-    file = event.target.files[0]
-    let array = []
+    if(spreadsheet === "RelatorioAnual") {
+      clearTable()
+      file = event.target.files[0]
+      let array = []
 
-    if(file) {
-      readXlsxFile(file).then((rows) => {array = rows })
-      .then(() => {
-        formatInfo(array)
-        tableInfo = tableInfo
-      }) 
+      if(file) {
+        readXlsxFile(file).then((rows) => {array = rows })
+        .then(() => {
+          formatInfo(array)
+          $list = $list
+        }) 
+      }
     }
+    else if (spreadsheet === "Negociacoes") {
+      clearTable()
+      file = event.target.files[0]
+      let array = []
+
+      if(file) {
+        readXlsxFile(file).then((rows) => {array = rows })
+        .then(() => {
+          formatInfo(array)
+          $listNegotiations = $listNegotiations
+        }) 
+      }
+    }
+
+    
+
+  }
+
+  function formatInfo(data) {
+
+    if(spreadsheet === "RelatorioAnual") {
+      data.forEach(element => {
+      $list.push({
+        produto: element[0], 
+        instituicao: element[1],
+        conta: element[2],
+        codigoNegociacao: element[3],
+        cnpj: element[4],
+        codigoISIN: element[5],
+        tipo: element[6],
+        escriturador: element[7],
+        quantidade: element[8],
+        quantidadeDisponivel: element[9],
+        quantidadeIndisponivel: element[10],
+        motivo: element[11],
+        preçoFechamento: element[12],
+        valorAtualizado: element[13]
+        
+      })
+    });  
+    $list.shift()
+    }
+    
+    else if (spreadsheet === "Negociacoes") {
+      console.log("aqui")
+    }
+
+
+    console.log("RelatorioAnual", $list)
+    console.log("Negociacoes", $listNegotiations)
+
+    
 
   }
 
   function clearTable() {
-    tableInfo = []
+    
+    if(spreadsheet === "RelatorioAnual") {
+      $list = []
+    }
+    else if (spreadsheet === "Negociacoes") {
+      $listNegotiations = []
+    }
   }
 
 
@@ -60,12 +98,8 @@
 
 
 <div class="search-file">
-  <label for=""> Escolha um arquivo de planilha e clique em OK. </label>
+  <label for=""> {text} </label>
   <div> <input type="file" on:change={readFile} bind:this={input}> </div>
-
-  <div class="teste">
-    {$list}
-  </div>
   
 </div>
 
@@ -87,13 +121,7 @@
   }
   .search-file > label {
     margin-bottom: .5rem;
+    font-size: 1.8rem;
   }
-
-  .teste {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 100, 0, .5);
-  }
-
 
 </style>

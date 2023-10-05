@@ -1,11 +1,11 @@
 <script>
 
+  import { list } from './stores/stores';
+  import { listNegotiations } from './stores/stores';
+
   import Card from './containers/Card/Card.svelte';
   import SearchFile from './components/SearchFile/SearchFile.svelte';
-
-
-  import { list } from './stores/stores';
-  $list = ["333", "444"]
+  import ReportTable from './components/ReportTable/ReportTable.svelte';
 
 
 </script>
@@ -13,14 +13,20 @@
 <main class="container-main">
   
 
-  <Card title="Teste de Planilha!"> 
-    <SearchFile/>
+  <Card title="Selecionar Arquivos"> 
+    <SearchFile text="Selecione a Planilha de Relatório Anual da B3" spreadsheet="RelatorioAnual"/>
+    <SearchFile text="Selecione a Planilha de Negociações da B3" spreadsheet="Negociacoes"/> 
   </Card>
 
+  <Card> 
+    <ReportTable title="Tabela Relatório Anual"/> 
+  </Card>
 
-  <div class="teste">
-    {$list}
-  </div>
+  <Card> 
+    <!-- <ReportTable title="Tabela Negociações" tableInfo={$listNegotiations}/>  -->
+  </Card>
+
+  
   
  
 </main>

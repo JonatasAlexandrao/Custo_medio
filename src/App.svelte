@@ -1,11 +1,9 @@
 <script>
 
-  import { list } from './stores/stores';
-  import { listNegotiations } from './stores/stores';
-
   import Card from './containers/Card/Card.svelte';
   import SearchFile from './components/SearchFile/SearchFile.svelte';
   import ReportTable from './components/ReportTable/ReportTable.svelte';
+  import TradingTable from './components/TradingTable/TradingTable.svelte';
 
 
 </script>
@@ -23,7 +21,7 @@
   </Card>
 
   <Card> 
-    <!-- <ReportTable title="Tabela Negociações" tableInfo={$listNegotiations}/>  -->
+    <TradingTable title="Tabela Negociações"/>
   </Card>
 
   
@@ -36,11 +34,4 @@
     width: 100%;
     height: 100%;
   }
-
-  .teste {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.5);
-  }
-
 </style>

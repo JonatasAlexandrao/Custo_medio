@@ -71,7 +71,20 @@
     }
     
     else if (spreadsheet === "Negociacoes") {
-      console.log("aqui")
+      data.forEach(element => {
+      $listNegotiations.push({
+        data: element[0], 
+        tipoMovimentacao: element[1],
+        mercado: element[2],
+        prazoVencimento: element[3],
+        instituicao: element[4],
+        codigoNegociacao: element[5],
+        quantidade: element[6],
+        preco: element[7],
+        valor: element[8]
+      })
+    });
+    $listNegotiations.shift()
     }
 
 

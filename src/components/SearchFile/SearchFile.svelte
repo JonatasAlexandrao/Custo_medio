@@ -1,8 +1,7 @@
 <script>
   
   import readXlsxFile from 'read-excel-file'
-  import { list } from '../../stores/stores';
-  import { listNegotiations } from '../../stores/stores';
+  import { listReport, listNegotiations, listBDR, listDividends } from '../../stores/stores';
 
   export let text = ""
   export let spreadsheet = ""
@@ -16,17 +15,35 @@
 
     if(spreadsheet === "RelatorioAnual") {
       clearTable()
+      
       file = event.target.files[0]
       let array = []
 
       if(file) {
         readXlsxFile(file).then((rows) => {array = rows })
         .then(() => {
-          formatInfo(array)
-          $list = $list
+          formatInfo(array, "Report")
+          $listReport = $listReport
         }) 
+
+        readXlsxFile(file, { sheet: 2}).then((rows) => {array = rows })
+        .then(() => {
+          if(array){
+            formatInfo(array, "BDR")
+            $listBDR = $listBDR
+          }
+        }) 
+
+        readXlsxFile(file, { sheet: 3}).then((rows) => {array = rows })
+        .then(() => {
+          if(array){
+            formatInfo(array, "Dividends")
+            $listDividends = $listDividends
+          }
+        })
       }
     }
+
     else if (spreadsheet === "Negociacoes") {
       clearTable()
       file = event.target.files[0]
@@ -35,7 +52,7 @@
       if(file) {
         readXlsxFile(file).then((rows) => {array = rows })
         .then(() => {
-          formatInfo(array)
+          formatInfo(array, "Negotiations")
           $listNegotiations = $listNegotiations
         }) 
       }
@@ -45,11 +62,11 @@
 
   }
 
-  function formatInfo(data) {
+  function formatInfo(data, sheet) {
 
-    if(spreadsheet === "RelatorioAnual") {
+    if(sheet === "Report") {
       data.forEach(element => {
-      $list.push({
+      $listReport.push({
         produto: element[0], 
         instituicao: element[1],
         conta: element[2],
@@ -67,10 +84,10 @@
         
       })
     });  
-    $list.shift()
+    $listReport.shift()
     }
     
-    else if (spreadsheet === "Negociacoes") {
+    else if (sheet === "Negotiations") {
       data.forEach(element => {
       $listNegotiations.push({
         data: element[0], 
@@ -87,9 +104,33 @@
     $listNegotiations.shift()
     }
 
+    else if (sheet === "BDR") {
+      data.forEach(element => {
+      console.log("element", element)
 
-    console.log("RelatorioAnual", $list)
+      $listBDR.push({
+        
+      })
+      
+      
+    });
+    $listBDR.shift()
+    }
+
+    else if (sheet === "Dividends") {
+      data.forEach(element => {
+      $listDividends.push({
+        
+      })
+    });
+    $listDividends.shift()
+    }
+
+
+    console.log("RelatorioAnual", $listReport)
     console.log("Negociacoes", $listNegotiations)
+    console.log("BDR", $listBDR)
+    console.log("Dividends", $listDividends)
 
     
 
@@ -98,7 +139,7 @@
   function clearTable() {
     
     if(spreadsheet === "RelatorioAnual") {
-      $list = []
+      $listReport = []
     }
     else if (spreadsheet === "Negociacoes") {
       $listNegotiations = []

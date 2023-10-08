@@ -1,6 +1,6 @@
 
 <script>
-  import { list } from '../../stores/stores';
+  import { listReport } from '../../stores/stores';
   import masc from '../../functions/masc' 
 
   export let title = ""
@@ -27,7 +27,7 @@
       </tr>
     </thead>
     <tbody>
-      {#each $list as row}
+      {#each $listReport as row}
         {#if row.codigoNegociacao}
         
           <tr>

@@ -2,19 +2,18 @@
   
   import readXlsxFile from 'read-excel-file'
   import { listReport, listNegotiations, listBDR, listDividends } from '../../stores/stores';
+  import formatInfo from '../../functions/formatInfo';
 
   export let text = ""
   export let spreadsheet = ""
 
   let input
   let file
-  
-
 
   function readFile(event) {
 
     if(spreadsheet === "RelatorioAnual") {
-      clearTable()
+      clearTable("RelatorioAnual")
       
       file = event.target.files[0]
       let array = []
@@ -22,126 +21,48 @@
       if(file) {
         readXlsxFile(file).then((rows) => {array = rows })
         .then(() => {
-          formatInfo(array, "Report")
-          $listReport = $listReport
+          $listReport = formatInfo.report(array)
         }) 
 
         readXlsxFile(file, { sheet: 2}).then((rows) => {array = rows })
         .then(() => {
           if(array){
-            formatInfo(array, "BDR")
-            $listBDR = $listBDR
+            $listBDR = formatInfo.bdr(array)
           }
         }) 
 
         readXlsxFile(file, { sheet: 3}).then((rows) => {array = rows })
         .then(() => {
           if(array){
-            formatInfo(array, "Dividends")
-            $listDividends = $listDividends
+            $listDividends = formatInfo.dividends(array)
           }
         })
       }
     }
 
     else if (spreadsheet === "Negociacoes") {
-      clearTable()
+      clearTable("Negociacoes")
       file = event.target.files[0]
       let array = []
 
       if(file) {
         readXlsxFile(file).then((rows) => {array = rows })
         .then(() => {
-          formatInfo(array, "Negotiations")
-          $listNegotiations = $listNegotiations
+          $listNegotiations = formatInfo.negotiations(array)
         }) 
       }
     }
 
-    
-
   }
 
-  function formatInfo(data, sheet) {
+  
 
-    if(sheet === "Report") {
-      data.forEach(element => {
-      $listReport.push({
-        produto: element[0], 
-        instituicao: element[1],
-        conta: element[2],
-        codigoNegociacao: element[3],
-        cnpj: element[4],
-        codigoISIN: element[5],
-        tipo: element[6],
-        escriturador: element[7],
-        quantidade: element[8],
-        quantidadeDisponivel: element[9],
-        quantidadeIndisponivel: element[10],
-        motivo: element[11],
-        preçoFechamento: element[12],
-        valorAtualizado: element[13]
-        
-      })
-    });  
-    $listReport.shift()
-    }
+  function clearTable(table) {
     
-    else if (sheet === "Negotiations") {
-      data.forEach(element => {
-      $listNegotiations.push({
-        data: element[0], 
-        tipoMovimentacao: element[1],
-        mercado: element[2],
-        prazoVencimento: element[3],
-        instituicao: element[4],
-        codigoNegociacao: element[5],
-        quantidade: element[6],
-        preco: element[7],
-        valor: element[8]
-      })
-    });
-    $listNegotiations.shift()
-    }
-
-    else if (sheet === "BDR") {
-      data.forEach(element => {
-      console.log("element", element)
-
-      $listBDR.push({
-        
-      })
-      
-      
-    });
-    $listBDR.shift()
-    }
-
-    else if (sheet === "Dividends") {
-      data.forEach(element => {
-      $listDividends.push({
-        
-      })
-    });
-    $listDividends.shift()
-    }
-
-
-    console.log("RelatorioAnual", $listReport)
-    console.log("Negociacoes", $listNegotiations)
-    console.log("BDR", $listBDR)
-    console.log("Dividends", $listDividends)
-
-    
-
-  }
-
-  function clearTable() {
-    
-    if(spreadsheet === "RelatorioAnual") {
+    if(table === "RelatorioAnual") {
       $listReport = []
     }
-    else if (spreadsheet === "Negociacoes") {
+    else if (table === "Negociacoes") {
       $listNegotiations = []
     }
   }

@@ -3,7 +3,9 @@
   import Card from './containers/Card/Card.svelte';
   import SearchFile from './components/SearchFile/SearchFile.svelte';
   import ReportTable from './components/ReportTable/ReportTable.svelte';
-  import TradingTable from './components/TradingTable/TradingTable.svelte';
+  import NegotiationsTable from './components/NegotiationsTable/NegotiationsTable.svelte';
+  import BdrTable from './components/BdrTable/BdrTable.svelte';
+  import DividendsTable from './components/DividendsTable/DividendsTable.svelte';
 
 
 </script>
@@ -21,7 +23,15 @@
   </Card>
 
   <Card> 
-    <TradingTable title="Tabela Negociações"/>
+    <NegotiationsTable title="Tabela Negociações"/>
+  </Card>
+  
+  <Card>
+    <BdrTable title="Tabela BDR"/>
+  </Card>
+
+  <Card>
+    <DividendsTable title="Tabela Dividendos"/>
   </Card>
 
   

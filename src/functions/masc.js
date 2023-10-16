@@ -17,6 +17,15 @@ const masc = {
     else {
       return "Error"
     }
+  },
+
+  separateCode : (text) => {
+    if(text) {
+      return text.replace()
+    }
+    else {
+      return "Error"
+    }
   }
 
 }

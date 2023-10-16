@@ -6,7 +6,7 @@
   export let title = ""
   let maximize = false
 
-  let tableHeader = ["produto", "tipoEvento", "valorLiquido"]
+  let tableHeader = ["Código", "Tipo", "Valor"]
 
 </script>
 
@@ -32,7 +32,7 @@
           <tr>
             <td>{row.produto}</td>
             <td>{row.tipoEvento}</td>
-            <td>{row.valorLiquido}</td>
+            <td>{masc.realCurrency(row.valorLiquido)}</td>
           </tr> 
         {/if}  
       {/each}
@@ -57,15 +57,10 @@
     display: grid;
     justify-content: center;
     grid-template-columns: 
-      minmax(10rem, 14rem) /*Data*/
-      minmax(13rem, 13rem) /*Movimentação*/
-      /*minmax(10rem, 12rem) /*Mercado*/
-      /*minmax(10rem, 12rem) /*PrazoVenc*/
-      minmax(11rem, 20rem) /*Instituição*/
-      minmax(10rem, 12rem) /*Código*/
-      minmax(7rem, 10rem)  /*Qtd*/
-      minmax(10rem, 15rem) /*Preço*/
-      minmax(10rem, 15rem) /*Valor*/
+      minmax(18rem, 35rem) /*Produto*/
+      minmax(13rem, 20rem) /*Tipo Evento*/
+      minmax(10rem, 12rem) /*Valor Liquido*/
+
     ;
   }
 
@@ -75,12 +70,12 @@
     font-size: 1.2rem;
   }
 
-  .container-table-base .table-base tr th:nth-child(3),
+  /*.container-table-base .table-base tr th:nth-child(3),
   .container-table-base .table-base tr td:nth-child(3),
   .container-table-base .table-base tr th:nth-child(4),
   .container-table-base .table-base tr td:nth-child(4) {
     display: none;
-  }
+  }*/
  
 </style>
 

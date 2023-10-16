@@ -7,6 +7,8 @@
   import BdrTable from './components/BdrTable/BdrTable.svelte';
   import DividendsTable from './components/DividendsTable/DividendsTable.svelte';
 
+  import Teste from './components/Teste/Teste.svelte'
+
 
 </script>
 
@@ -32,6 +34,10 @@
 
   <Card>
     <DividendsTable title="Tabela Dividendos"/>
+  </Card>
+
+  <Card>
+    <Teste/>
   </Card>
 
   

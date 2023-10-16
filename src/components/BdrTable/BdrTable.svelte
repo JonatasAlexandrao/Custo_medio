@@ -6,7 +6,7 @@
   export let title = ""
   let maximize = false
 
-  let tableHeader = ["produto", "instituicao", "conta", "codigoNegociacao" , "cnpj", "codigoISIN", "tipo", "escriturador", "quantidade", "quantidadeDisponivel", "quantidadeIndisponivel", "motivo", "preçoFechamento", "valorAtualizado"]
+  let tableHeader = ["Código", "produto", "Instituicao", "Conta", "codigoISIN", "tipo", "Escriturador", "Qtd.", "quantidadeDisponivel", "quantidadeIndisponivel", "motivo", "preçoFechamento", "valorAtualizado"]
 
 </script>
 
@@ -27,14 +27,12 @@
       </tr>
     </thead>
     <tbody>
-      {#each $listBDR as row}
-        {#if row.codigoNegociacao}
+      {#each $listBDR as row}     
           <tr>
+            <td>{row.codigoNegociacao}</td>
             <td>{row.produto}</td>
             <td>{row.instituicao}</td>
-            <td>{row.conta}</td>
-            <td>{row.codigoNegociacao}</td>
-            <td>{row.cnpj}</td>
+            <td>{row.conta}</td>           
             <td>{row.codigoISIN}</td>
             <td>{row.tipo}</td>
             <td>{row.escriturador}</td>
@@ -47,7 +45,6 @@
             <td>{row.valorAtualizado}</td>
             
           </tr> 
-        {/if}  
       {/each}
     </tbody>        
   </table>
@@ -70,28 +67,47 @@
     display: grid;
     justify-content: center;
     grid-template-columns: 
-      minmax(10rem, 14rem) /*Data*/
-      minmax(13rem, 13rem) /*Movimentação*/
-      /*minmax(10rem, 12rem) /*Mercado*/
-      /*minmax(10rem, 12rem) /*PrazoVenc*/
-      minmax(11rem, 20rem) /*Instituição*/
-      minmax(10rem, 12rem) /*Código*/
-      minmax(7rem, 10rem)  /*Qtd*/
-      minmax(10rem, 15rem) /*Preço*/
-      minmax(10rem, 15rem) /*Valor*/
+      minmax(13rem, 14rem) /*Codigo Negociação*/
+      /*minmax(10rem, 14rem) /*Produto*/
+      minmax(14rem, 18rem) /*Instituição*/
+      minmax(10rem, 12rem) /*Conta*/
+      /*minmax(10rem, 12rem) /*CNPJ*/
+      minmax(12rem, 18rem) /*Escriturador*/
+      minmax(12rem, 14rem) /*Qtd*/
+      /*minmax(10rem, 12rem) /*Codigo ISIN*/
+      /*minmax(7rem, 10rem)  /**/
+      /*minmax(10rem, 15rem) /*Qtd Disponivel*/
+      /*minmax(10rem, 15rem) /*Qtd Indisponivel*/
+      /*minmax(10rem, 15rem) /*Motivo*/
+      /*minmax(10rem, 15rem) /*Preço Fechamento*/
+      /*minmax(10rem, 15rem) /*Valor Atualizado*/
     ;
   }
 
   
   /* ========== Exceções ============*/
-  .table-base tr td:nth-child(5) {
+  .table-base tr td:nth-child(3),
+  .table-base tr td:nth-child(7) {
     font-size: 1.2rem;
   }
 
-  .container-table-base .table-base tr th:nth-child(3),
-  .container-table-base .table-base tr td:nth-child(3),
-  .container-table-base .table-base tr th:nth-child(4),
-  .container-table-base .table-base tr td:nth-child(4) {
+  .container-table-base .table-base tr th:nth-child(2),
+  .container-table-base .table-base tr td:nth-child(2),
+  .container-table-base .table-base tr th:nth-child(5),
+  .container-table-base .table-base tr td:nth-child(5),
+  .container-table-base .table-base tr th:nth-child(6),
+  .container-table-base .table-base tr td:nth-child(6),
+  .container-table-base .table-base tr th:nth-child(9),
+  .container-table-base .table-base tr td:nth-child(9),
+  .container-table-base .table-base tr th:nth-child(10),
+  .container-table-base .table-base tr td:nth-child(10),
+  .container-table-base .table-base tr th:nth-child(11),
+  .container-table-base .table-base tr td:nth-child(11),
+  .container-table-base .table-base tr th:nth-child(12),
+  .container-table-base .table-base tr td:nth-child(12),
+  .container-table-base .table-base tr th:nth-child(13),
+  .container-table-base .table-base tr td:nth-child(13)
+  {
     display: none;
   }
  

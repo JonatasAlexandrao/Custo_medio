@@ -6,7 +6,8 @@ const masc = {
       return text.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
     }
     else {
-      return "Error"
+      console.log("Erro mascara realCurrency")
+      return ""
     }
   },
 
@@ -15,7 +16,8 @@ const masc = {
       return text.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5")
     }
     else {
-      return "Error"
+      console.log("Erro mascara cnpj")
+      return ""
     }
   },
 
@@ -24,7 +26,8 @@ const masc = {
       return text.replace()
     }
     else {
-      return "Error"
+      console.log("Erro mascara separateCode")
+      return ""
     }
   }
 

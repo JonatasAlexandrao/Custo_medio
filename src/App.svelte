@@ -2,12 +2,13 @@
 
   import Card from './containers/Card/Card.svelte';
   import SearchFile from './components/SearchFile/SearchFile.svelte';
-  import ReportTable from './components/ReportTable/ReportTable.svelte';
-  import NegotiationsTable from './components/NegotiationsTable/NegotiationsTable.svelte';
-  import BdrTable from './components/BdrTable/BdrTable.svelte';
-  import DividendsTable from './components/DividendsTable/DividendsTable.svelte';
+  import ReportTable from './components/Tables/ReportTable/ReportTable.svelte';
+  import NegotiationsTable from './components/Tables/NegotiationsTable/NegotiationsTable.svelte';
+  import BdrTable from './components/Tables/BdrTable/BdrTable.svelte';
+  import DividendsTable from './components/Tables/DividendsTable/DividendsTable.svelte';
 
   import Teste from './components/Teste/Teste.svelte'
+  import PrecoMedio from './components/PrecoMedio/PrecoMedio.svelte';
 
 
 </script>
@@ -20,25 +21,33 @@
     <SearchFile text="Selecione a Planilha de Negociações da B3" spreadsheet="Negociacoes"/> 
   </Card>
 
-  <Card> 
-    <ReportTable title="Tabela Relatório Anual"/> 
+  <Card title="Tabelas">
+
+    <Card title="Tabela Relatório Anual"> 
+      <ReportTable /> 
+    </Card>
+
+    <Card title="Tabela Negociações"> 
+      <NegotiationsTable />
+    </Card>
+    
+    <Card title="Tabela BDR">
+      <BdrTable />
+    </Card>
+
+    <Card title="Tabela Dividendos">
+      <DividendsTable />
+    </Card>
+
   </Card>
 
-  <Card> 
-    <NegotiationsTable title="Tabela Negociações"/>
-  </Card>
-  
-  <Card>
-    <BdrTable title="Tabela BDR"/>
+  <Card title = "Preço Médio">
+    <PrecoMedio />
   </Card>
 
-  <Card>
-    <DividendsTable title="Tabela Dividendos"/>
-  </Card>
-
-  <Card>
+  <!-- <Card>
     <Teste/>
-  </Card>
+  </Card> -->
 
   
   

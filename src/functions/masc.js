@@ -33,5 +33,4 @@ const masc = {
 
 }
 
-
 export default masc 

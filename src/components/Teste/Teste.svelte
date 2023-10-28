@@ -1,6 +1,6 @@
 <script>
   import Card from "../../containers/Card/Card.svelte";
-  import { listReport, searchReportCodes } from "../../stores/stores";
+  import { listReport, annualReportCodes } from "../../stores/stores";
   import masc from "../../functions/masc";
 
   let selectComponent = ""
@@ -29,7 +29,7 @@
 
 <div class="containerSelectStock">
   <select name="" id="selectStock" bind:value={selectComponent}>
-    {#each $searchReportCodes as stocks}
+    {#each $annualReportCodes as stocks}
       <option value={stocks}>{stocks}</option>
     {/each}
   </select>

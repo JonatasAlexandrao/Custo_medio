@@ -1,7 +1,7 @@
 
 <script>
-  import { listBDR } from '../../stores/stores';
-  import masc  from '../../functions/masc' 
+  import { listBDR } from '../../../stores/stores';
+  import masc  from '../../../functions/masc' 
 
   export let title = ""
   let maximize = false
@@ -9,12 +9,6 @@
   let tableHeader = ["Código", "produto", "Instituicao", "Conta", "codigoISIN", "tipo", "Escriturador", "Qtd.", "quantidadeDisponivel", "quantidadeIndisponivel", "motivo", "preçoFechamento", "valorAtualizado"]
 
 </script>
-
-
-<div class="trading-table-title">
-  <h2>{title}</h2>
-  <button on:click={ () => maximize = !maximize }>Abrir/fechar</button>
-</div>
 
 <div class="container-table-base" class:-active={maximize}>
 

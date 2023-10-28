@@ -1,7 +1,7 @@
 
 <script>
-  import { listReport } from '../../stores/stores';
-  import masc from '../../functions/masc' 
+  import { listReport } from '../../../stores/stores';
+  import masc from '../../../functions/masc' 
 
   export let title = ""
   let maximize = false
@@ -10,11 +10,6 @@
 
 </script>
 
-
-<div class="report-table-title">
-  <h2>{title}</h2>
-  <button on:click={ () => maximize = !maximize }>Abrir/fechar</button>
-</div>
 
 <div class="container-table-base" class:-active={maximize}>
 

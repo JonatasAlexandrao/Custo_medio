@@ -1,7 +1,7 @@
 
 <script>
-  import { listDividends } from '../../stores/stores';
-  import masc  from '../../functions/masc' 
+  import { listDividends } from '../../../stores/stores';
+  import masc  from '../../../functions/masc' 
 
   export let title = ""
   let maximize = false
@@ -10,13 +10,7 @@
 
 </script>
 
-
-<div class="trading-table-title">
-  <h2>{title}</h2>
-  <button on:click={ () => maximize = !maximize }>Abrir/fechar</button>
-</div>
-
-<div class="container-table-base" class:-active={maximize}>
+<div class="container-table-base" >
 
   <table class="table-base">
     <thead>
@@ -38,8 +32,6 @@
       {/each}
     </tbody>        
   </table>
-
-  
 
 </div>
 
@@ -64,7 +56,7 @@
     ;
   }
 
-  
+   
   /* ========== Exceções ============*/
   .table-base tr td:nth-child(5) {
     font-size: 1.2rem;

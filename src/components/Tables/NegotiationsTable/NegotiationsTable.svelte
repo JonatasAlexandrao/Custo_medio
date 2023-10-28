@@ -1,22 +1,16 @@
 
 <script>
-  import { listNegotiations } from '../../stores/stores';
-  import masc  from '../../functions/masc' 
+  import { listNegotiations } from '../../../stores/stores';
+  import masc  from '../../../functions/masc' 
 
   export let title = ""
-  let maximize = false
 
   let tableHeader = ["Data", "Movimentação", "Mercado", "Prazo/Vencimento" , "Instituição", "Código", "Qtd", "Preço", "Valor"]
 
 </script>
 
 
-<div class="trading-table-title">
-  <h2>{title}</h2>
-  <button on:click={ () => maximize = !maximize }>Abrir/fechar</button>
-</div>
-
-<div class="container-table-base" class:-active={maximize}>
+<div class="container-table-base">
 
   <table class="table-base">
     <thead>

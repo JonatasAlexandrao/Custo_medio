@@ -18,6 +18,9 @@
       } 
     });
     console.log("aaa",filteredList)
+    let dt = new Date(filteredList[0].data)
+    
+    console.log("teste",dt)
     sumQuantity()
     averagePrice()
   }

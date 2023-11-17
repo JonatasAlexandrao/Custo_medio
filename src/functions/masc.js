@@ -29,7 +29,20 @@ const masc = {
       console.log("Erro mascara separateCode")
       return ""
     }
+  },
+
+  formatDate : (date) => {
+    const testeDate = new Date(date)
+    let isDate = !isNaN(testeDate.getTime())
+    let newDate = date
+
+    if(isDate) {
+      newDate = date.toLocaleDateString('pt-BR', {timeZone: 'UTC'})
+    }
+
+    return newDate
   }
+
 
 }
 

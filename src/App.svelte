@@ -8,7 +8,7 @@
   import DividendsTable from './components/Tables/DividendsTable/DividendsTable.svelte';
 
   import Teste from './components/Teste/Teste.svelte'
-  import PrecoMedio from './components/PrecoMedio/PrecoMedio.svelte';
+  import PrecoMedio from './components/AveragePrice/AveragePrice.svelte';
 
 
 </script>

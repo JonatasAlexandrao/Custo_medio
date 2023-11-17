@@ -1,4 +1,5 @@
 import { derived, readable, writable } from "svelte/store";
+import masc from "../functions/masc";
 
 export const listNegotiations = writable([])
 
@@ -51,6 +52,8 @@ export const NEGOTIATION = derived(listNegotiations, ($listNegotiations) => {
     })
   });
 
+  
+
   $listNegotiations.forEach((data) => {
     newList.forEach(el => {
       if(data.codigoNegociacao == el.codigo) {
@@ -59,6 +62,26 @@ export const NEGOTIATION = derived(listNegotiations, ($listNegotiations) => {
     });
   });
 
+  $listNegotiations.forEach(el => {
+    el.data = masc.formatDate(el.data)
+  })
+
+
   return newList
 })
+
+export const LIST_Report_PRODUTO = derived( listReport, ($listReport) => {
+
+    let array = []
+
+    $listReport.forEach(el => {
+      array.push({
+          "codigo": el.codigoNegociacao , "produto": el.produto
+        })
+    })
+
+    return array
+})
+
+
 

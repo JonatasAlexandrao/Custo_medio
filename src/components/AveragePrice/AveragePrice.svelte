@@ -5,8 +5,6 @@
   import masc from "../../functions/masc";
   import formulas from "../../functions/formulas"
 
-  
-
 
   let selectComponent = ""
   let tableHeader = ["Data", "Movimentação", "Código", "Qtd", "Preço", "Valor"]
@@ -20,6 +18,9 @@
   let nomePregao = ""
   let instituicao = ""
 
+  let inputAveragePrice 
+  let inputTotalValue
+
   function searchStock() {
     let list
 
@@ -30,8 +31,14 @@
 
         instituicao = filteredList[0].instituicao
       } 
-
     });
+
+    $LIST_Report_PRODUTO.forEach(element => {
+      let codeSelected = selectComponent.replace(/F$/, '')
+      if(element.codigo == codeSelected){
+        nomePregao = element.produto
+      }
+    })
    
     textSumOfQuantity = formulas.sumOfQuantity(filteredList)
     textSumOfTotal = formulas.sumOfTotal(filteredList)
@@ -44,26 +51,10 @@
     if(text) { 
       navigator.clipboard.writeText(text)
     }
+  }
 
-
-
-    console.log("$LIST_Report_PRODUTO", $LIST_Report_PRODUTO)
-
-
-    $LIST_Report_PRODUTO.forEach(element => {
-      let codeSelected = selectComponent.replace(/F$/, '')
-      if(element.codigo == codeSelected){
-        nomePregao = element.produto
-      }
-
-      
-    })
-    
-    
-
-    
-
-
+  function onInput(input) {
+    input.value = masc.inputRealCurrency(input.value)
   }
 
 </script>
@@ -79,6 +70,26 @@
 </div>
 
 <div class="container-table-base">
+
+  <table class="table-old-stocks -average-price">
+    <tr class="old-stocks">
+      <th>Ano</th>
+      <th>Quantidade</th>
+      <th>Preço Médio</th>
+      <th>Valor Total</th>
+    </tr>
+    <tr class="old-stocks">
+      <td><input type="text"></td>
+      <td><input type="number"></td>
+      <td>
+        <input type="text" on:input={() => onInput(inputAveragePrice)} bind:this={inputAveragePrice} value="0,00">
+      </td>
+      <td>
+        <input type="text" on:input={() => onInput(inputTotalValue)} bind:this={inputTotalValue} value="0,00">
+      </td>
+    </tr>
+  </table>
+
   <table class="table-base -average-price">
     <thead>
       <tr>
@@ -174,6 +185,26 @@
       minmax(10rem, 15rem) /*Preço*/
       minmax(10rem, 15rem) /*Valor*/
     ;
+  }
+
+
+   .table-old-stocks .old-stocks {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 
+      minmax(7rem, 10rem) /*Ano*/
+      minmax(10rem, 13rem) /*Quantidade*/
+      minmax(12rem, 12rem) /*Preco Medio*/
+      minmax(14rem, 16rem)  /*Valor Total*/
+    ;
+  }
+  .table-old-stocks .old-stocks td {
+    padding: 0;
+  }
+  .table-old-stocks .old-stocks td > input {
+    width: 100%;
+    height: 100%;
+    text-align: center;
   }
 
   .container-text-box {

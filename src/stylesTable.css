@@ -5,7 +5,7 @@
   overflow: auto;
 }
 
-.table-base, .table-old-stocks {
+.table-base {
   justify-self: center;
   border: none;
   text-align: center;
@@ -13,10 +13,7 @@
 }
 
 .table-base,
-.table-old-stocks,
 .table-base th,
-.table-old-stocks th,
-.table-old-stocks td,
 .table-base td {
   border: .1rem solid #a3a3a3;
   border-collapse: collapse;
@@ -24,25 +21,20 @@
 
 
 .table-base th,
-.table-old-stocks th,
-.table-base td,
-.table-old-stocks td {
+.table-base td {
   padding: .5rem .8rem;
 }
 
-.table-base th,
-.table-old-stocks th {
+.table-base th {
   background-color: rgb(14, 74, 58);
 }
 
 
-.table-base tr:hover
-.table-old-stocks tr:hover {
+.table-base tr:hover {
   background-color: rgba(163, 163, 163, .3);
 }
 
-.table-base tr td
-.table-old-stocks tr td {
+.table-base tr td {
   display: flex;
   align-items: center;
   justify-content: center;

@@ -5,7 +5,6 @@
   import masc from "../../functions/masc";
   import formulas from "../../functions/formulas"
 
-
   let selectComponent = ""
   let tableHeader = ["Data", "Movimentação", "Código", "Qtd", "Preço", "Valor"]
   let filteredList = []
@@ -18,8 +17,17 @@
   let nomePregao = ""
   let instituicao = ""
 
+  //add acoes antigas
   let inputAveragePrice 
   let inputTotalValue
+
+  let valueYearOld = ""
+  let valueQtd = ""
+  let valueAveragePrice = "0,00"
+  let valueTotalValue = "0,00"
+
+  let arrayOldStocks = [["00", "666", "444", "345"]]
+  
 
   function searchStock() {
     let list
@@ -53,8 +61,25 @@
     }
   }
 
-  function onInput(input) {
-    input.value = masc.inputRealCurrency(input.value)
+  function onInput() {
+    valueAveragePrice = masc.inputRealCurrency(inputAveragePrice.value)
+
+    valueTotalValue = masc.inputRealCurrency(inputTotalValue.value)
+  }
+
+  function addOldStocks() {
+
+    const infos = [valueYearOld, valueQtd, valueAveragePrice, valueTotalValue]
+
+
+    arrayOldStocks = [... arrayOldStocks, infos]
+    console.log("infos: ", arrayOldStocks)
+
+    arrayOldStocks.forEach(element => {
+      console.log(element)
+    });
+
+
   }
 
 </script>
@@ -71,26 +96,46 @@
 
 <div class="container-table-base">
 
-  <table class="table-old-stocks -average-price">
+  <table class="table-base table-inputs -average-price">
     <tr class="old-stocks">
       <th>Ano</th>
       <th>Quantidade</th>
       <th>Preço Médio</th>
       <th>Valor Total</th>
+      <th></th>
     </tr>
     <tr class="old-stocks">
-      <td><input type="text"></td>
-      <td><input type="number"></td>
+      <td><input type="text" bind:value={valueYearOld}></td>
+      <td><input type="number" bind:value={valueQtd}></td>
       <td>
-        <input type="text" on:input={() => onInput(inputAveragePrice)} bind:this={inputAveragePrice} value="0,00">
+        <input type="text" on:input={onInput} bind:this={inputAveragePrice} value={valueAveragePrice}>
       </td>
       <td>
-        <input type="text" on:input={() => onInput(inputTotalValue)} bind:this={inputTotalValue} value="0,00">
+        <input type="text" on:input={onInput} bind:this={inputTotalValue} value={valueTotalValue}>
       </td>
+      <td><button on:click={addOldStocks}>+</button></td>
     </tr>
   </table>
 
-  <table class="table-base -average-price">
+  <table class="table-base table-old-stocks -average-price">
+    <tr class="old-stocks">
+      <th>Ano</th>
+      <th>Quantidade</th>
+      <th>Preço Médio</th>
+      <th>Valor Total</th>
+      <th></th>
+    </tr>
+    {#each arrayOldStocks as row}
+      <tr class="old-stocks">
+        {#each row as info}
+          <td>{info}</td>
+        {/each}
+      </tr>
+    {/each}
+    
+  </table>
+
+  <table class="table-base table-info -average-price">
     <thead>
       <tr>
         {#each tableHeader as columns}
@@ -174,7 +219,7 @@
     margin-bottom: 2rem;
   }
 
-  .container-table-base .table-base tr {
+  .container-table-base .table-info tr {
     display: grid;
     justify-content: center;
     grid-template-columns: 
@@ -188,20 +233,21 @@
   }
 
 
-   .table-old-stocks .old-stocks {
+   .-average-price .old-stocks {
     display: grid;
     justify-content: center;
     grid-template-columns: 
       minmax(7rem, 10rem) /*Ano*/
-      minmax(10rem, 13rem) /*Quantidade*/
+      minmax(11rem, 14rem) /*Quantidade*/
       minmax(12rem, 12rem) /*Preco Medio*/
       minmax(14rem, 16rem)  /*Valor Total*/
+      minmax(7rem, 10rem)  /*Botao*/
     ;
   }
-  .table-old-stocks .old-stocks td {
+  .-average-price .old-stocks td {
     padding: 0;
   }
-  .table-old-stocks .old-stocks td > input {
+  .-average-price .old-stocks td > input {
     width: 100%;
     height: 100%;
     text-align: center;

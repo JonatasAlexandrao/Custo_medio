@@ -1,6 +1,15 @@
 <script>
 
   export let arrayOldStocks
+  export let calculationInfos
+
+  function removeItem(index) {
+
+    arrayOldStocks.splice(index, 1)
+    arrayOldStocks = arrayOldStocks
+    calculationInfos()
+    
+  }
 
 </script>
 
@@ -12,12 +21,12 @@
     <th>Preço Médio</th>
     <th></th>
   </tr>
-  {#each arrayOldStocks as row}
+  {#each arrayOldStocks as row, index}
     <tr class="old-stocks">
       {#each row as info}
         <td>{info}</td>
       {/each}
-        <td><button>[X]</button></td>
+        <td><button on:click={() => removeItem(index)}>[x]</button></td>
     </tr>
   {/each}
   

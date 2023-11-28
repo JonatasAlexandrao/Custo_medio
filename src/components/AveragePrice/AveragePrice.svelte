@@ -49,11 +49,7 @@
       }
     })
    
-    textSumOfQuantity = formulas.sumOfQuantity(filteredList, arrayOldStocks)
-    textSumOfTotal = formulas.sumOfTotal(filteredList, arrayOldStocks)
-    textAveragePrice = formulas.averagePrice(textSumOfQuantity, textSumOfTotal)
-
-
+    calculationInfos()
   }
 
   function copyText(text="") {
@@ -86,12 +82,19 @@
         } 
       });
 
-      textSumOfQuantity = formulas.sumOfQuantity(filteredList, arrayOldStocks)
-      textSumOfTotal = formulas.sumOfTotal(filteredList, arrayOldStocks)
-      textAveragePrice = formulas.averagePrice(textSumOfQuantity, textSumOfTotal)
+      calculationInfos()
 
       }
-    }
+  }
+
+
+  function calculationInfos() {
+    textSumOfQuantity = formulas.sumOfQuantity(filteredList, arrayOldStocks)
+
+    textSumOfTotal = formulas.sumOfTotal(filteredList, arrayOldStocks)
+
+    textAveragePrice = formulas.averagePrice(textSumOfQuantity, textSumOfTotal)
+  }
 
     
 
@@ -134,7 +137,7 @@
     </tr>
   </table>
 
-  <TableOldStocks arrayOldStocks={arrayOldStocks}/>
+  <TableOldStocks arrayOldStocks={arrayOldStocks} calculationInfos={calculationInfos} />
 
   <AddOldStock tableHeader={tableHeader} filteredList={filteredList} />
 

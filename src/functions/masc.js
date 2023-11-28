@@ -74,10 +74,12 @@ const masc = {
   },
 
   inputNum : (value) => {
-    let num
+
+      let num
       num = value.replace(/[^0-9]/g, '')
       num = num.replace(/(0)(\d)/g, '$2')
       return num
+
   }
 
 

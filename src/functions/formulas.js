@@ -2,7 +2,19 @@
 
 const formulas = {
 
-  sumOfQuantity: (filteredList) => {
+  sumOfQuantity: (filteredList, old) => {
+
+    let totalQtdOld = 0
+    if(old) {
+      totalQtdOld = old.reduce((prev, elem) => {
+
+        if(elem[1])
+          return prev + parseInt(elem[1])
+        else
+          return prev
+        
+      },0)
+    }
 
     const res = filteredList.reduce( (prev, elem) => {
 
@@ -15,13 +27,25 @@ const formulas = {
       else {
        return prev
       }
-      }, 0)
+    }, 0)
 
-      return res
+      return (totalQtdOld + res)
 
   },
 
-  sumOfTotal: (filteredList) => {
+  sumOfTotal: (filteredList, old) => {
+
+    let totalSumOld = 0
+    if(old) {
+      totalSumOld = old.reduce((prev, elem) => {
+
+        if(elem[2])
+          return prev + parseFloat(elem[2].replace(",", "."))
+        else
+          return prev
+        
+      },0)
+    }
 
     const res = filteredList.reduce( (prev, elem) => {
 
@@ -36,19 +60,12 @@ const formulas = {
       }
       }, 0)
 
-      return res
+      return (totalSumOld + res)
 
   },
 
-  averagePrice: (filteredList) => {
-
-    const qtd = formulas.sumOfQuantity(filteredList)
-    const total = formulas.sumOfTotal(filteredList)
-
-    const res = total / qtd
-
-    return res
-
+  averagePrice: (sumQtd, sumTotal) => {
+    return sumTotal / sumQtd
   }
   
 }

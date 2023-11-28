@@ -7,7 +7,6 @@
   import BdrTable from './components/Tables/BdrTable/BdrTable.svelte';
   import DividendsTable from './components/Tables/DividendsTable/DividendsTable.svelte';
 
-  import Teste from './components/Teste/Teste.svelte'
   import PrecoMedio from './components/AveragePrice/AveragePrice.svelte';
 
 
@@ -41,15 +40,9 @@
 
   </Card>
 
-  <Card title = "Preço Médio">
+  <Card title ="Preço Médio">
     <PrecoMedio />
   </Card>
-
-  <!-- <Card>
-    <Teste/>
-  </Card> -->
-
-  
   
  
 </main>

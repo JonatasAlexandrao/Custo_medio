@@ -5,6 +5,10 @@
   import masc from "../../functions/masc";
   import formulas from "../../functions/formulas"
 
+
+  import AddOldStock from "./TableAveragePrice/TableAveragePrice.svelte";
+  import TableOldStocks from "./TableOldStocks/TableOldStocks.svelte";
+
   let selectComponent = ""
   let tableHeader = ["Data", "Movimentação", "Código", "Qtd", "Preço", "Valor"]
   let filteredList = []
@@ -18,15 +22,12 @@
   let instituicao = ""
 
   //add acoes antigas
+  let inputYearOld
+  let inputQtd
   let inputAveragePrice 
   let inputTotalValue
 
-  let valueYearOld = ""
-  let valueQtd = ""
-  let valueAveragePrice = "0,00"
-  let valueTotalValue = "0,00"
-
-  let arrayOldStocks = [["00", "666", "444", "345"]]
+  let arrayOldStocks = []
   
 
   function searchStock() {
@@ -48,9 +49,9 @@
       }
     })
    
-    textSumOfQuantity = formulas.sumOfQuantity(filteredList)
-    textSumOfTotal = formulas.sumOfTotal(filteredList)
-    textAveragePrice = formulas.averagePrice(filteredList)
+    textSumOfQuantity = formulas.sumOfQuantity(filteredList, arrayOldStocks)
+    textSumOfTotal = formulas.sumOfTotal(filteredList, arrayOldStocks)
+    textAveragePrice = formulas.averagePrice(textSumOfQuantity, textSumOfTotal)
 
 
   }
@@ -62,25 +63,37 @@
   }
 
   function onInput() {
-    valueAveragePrice = masc.inputRealCurrency(inputAveragePrice.value)
+    inputAveragePrice.value = masc.inputRealCurrency(inputAveragePrice.value)
 
-    valueTotalValue = masc.inputRealCurrency(inputTotalValue.value)
+    inputTotalValue.value = masc.inputRealCurrency(inputTotalValue.value)
+
+    inputQtd.value = masc.inputNum(inputQtd.value)
   }
 
   function addOldStocks() {
 
-    const infos = [valueYearOld, valueQtd, valueAveragePrice, valueTotalValue]
+    const qtdValid = inputQtd.value > 0
+    const totalValid = (inputTotalValue.value).replace(",", ".") > 0
 
+    if(qtdValid && totalValid) {
+      const infos = [inputYearOld.value, inputQtd.value, inputTotalValue.value, inputAveragePrice.value]
 
-    arrayOldStocks = [... arrayOldStocks, infos]
-    console.log("infos: ", arrayOldStocks)
+      arrayOldStocks = [... arrayOldStocks, infos]
 
-    arrayOldStocks.forEach(element => {
-      console.log(element)
-    });
+      $NEGOTIATION.forEach(element => {
+        if(element.codigo == selectComponent) {
+          element.acoesAntigas = arrayOldStocks
+        } 
+      });
 
+      textSumOfQuantity = formulas.sumOfQuantity(filteredList, arrayOldStocks)
+      textSumOfTotal = formulas.sumOfTotal(filteredList, arrayOldStocks)
+      textAveragePrice = formulas.averagePrice(textSumOfQuantity, textSumOfTotal)
 
-  }
+      }
+    }
+
+    
 
 </script>
 
@@ -96,69 +109,34 @@
 
 <div class="container-table-base">
 
-  <table class="table-base table-inputs -average-price">
+  <table class="table-base -average-price">
     <tr class="old-stocks">
       <th>Ano</th>
       <th>Quantidade</th>
-      <th>Preço Médio</th>
       <th>Valor Total</th>
+      <th>Preço Médio</th>
       <th></th>
     </tr>
     <tr class="old-stocks">
-      <td><input type="text" bind:value={valueYearOld}></td>
-      <td><input type="number" bind:value={valueQtd}></td>
+      <td><input type="text" bind:this={inputYearOld} value={""}></td>
+      
+      <td><input type="text" on:input={onInput} bind:this={inputQtd} value={0}></td>
+
       <td>
-        <input type="text" on:input={onInput} bind:this={inputAveragePrice} value={valueAveragePrice}>
+        <input type="text" on:input={onInput} bind:this={inputTotalValue} value={"0,00"}>
       </td>
+
       <td>
-        <input type="text" on:input={onInput} bind:this={inputTotalValue} value={valueTotalValue}>
+        <input type="text" on:input={onInput} bind:this={inputAveragePrice} value={"0,00"} readonly>
       </td>
+      
       <td><button on:click={addOldStocks}>+</button></td>
     </tr>
   </table>
 
-  <table class="table-base table-old-stocks -average-price">
-    <tr class="old-stocks">
-      <th>Ano</th>
-      <th>Quantidade</th>
-      <th>Preço Médio</th>
-      <th>Valor Total</th>
-      <th></th>
-    </tr>
-    {#each arrayOldStocks as row}
-      <tr class="old-stocks">
-        {#each row as info}
-          <td>{info}</td>
-        {/each}
-      </tr>
-    {/each}
-    
-  </table>
+  <TableOldStocks arrayOldStocks={arrayOldStocks}/>
 
-  <table class="table-base table-info -average-price">
-    <thead>
-      <tr>
-        {#each tableHeader as columns}
-          <th>{columns}</th>
-        {/each}
-      </tr>
-    </thead>
-    <tbody>
-      {#each filteredList as row}
-        {#if row.codigoNegociacao}
-          <tr>
-            <td>{row.data}</td>
-            <td>{row.tipoMovimentacao}</td>
-            <td>{row.codigoNegociacao}</td>
-            <td>{row.quantidade}</td>
-            <td>{masc.realCurrency(row.preco)}</td>
-            <td>{masc.realCurrency(row.valor)}</td>
-          </tr> 
-        {/if}  
-      {/each}
-      
-    </tbody>        
-  </table>
+  <AddOldStock tableHeader={tableHeader} filteredList={filteredList} />
 
   <div class="container-text-box">
     <div>
@@ -219,21 +197,7 @@
     margin-bottom: 2rem;
   }
 
-  .container-table-base .table-info tr {
-    display: grid;
-    justify-content: center;
-    grid-template-columns: 
-      minmax(10rem, 14rem) /*Data*/
-      minmax(13rem, 13rem) /*Movimentação*/
-      minmax(10rem, 12rem) /*Código*/
-      minmax(7rem, 10rem)  /*Qtd*/
-      minmax(10rem, 15rem) /*Preço*/
-      minmax(10rem, 15rem) /*Valor*/
-    ;
-  }
-
-
-   .-average-price .old-stocks {
+  .-average-price .old-stocks {
     display: grid;
     justify-content: center;
     grid-template-columns: 

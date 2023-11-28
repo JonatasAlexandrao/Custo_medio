@@ -48,6 +48,7 @@ export const NEGOTIATION = derived(listNegotiations, ($listNegotiations) => {
       precoMedio: 0,
       quantidadeTotal: 0,
       valorTotal: 0,
+      acoesAntigas: [],
       dados: []
     })
   });

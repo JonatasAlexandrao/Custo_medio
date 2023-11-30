@@ -3,6 +3,7 @@ const masc = {
 
   realCurrency : (text) => {
     if(text) {
+      
       return text.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
     }
     else {

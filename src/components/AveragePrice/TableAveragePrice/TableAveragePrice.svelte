@@ -7,7 +7,7 @@
 
 </script>
 
-<table class="table-base table-info -average-price">
+<table class="table-base table-info -average-price 3">
   <thead>
     <tr>
       {#each tableHeader as columns}

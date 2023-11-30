@@ -13,7 +13,7 @@
 
 </script>
 
-<table class="table-base -average-price">
+<table class="table-base -average-price 2">
   <tr class="old-stocks">
     <th>Ano</th>
     <th>Quantidade</th>

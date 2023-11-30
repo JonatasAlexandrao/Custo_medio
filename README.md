@@ -9,8 +9,5 @@
 
 
 -------------------------------------
-[] Quando adicionado uma açao antiga precisa apagar os campos dos inputs
-
-[] Não está fazendo as contas do preço médio quando se coloca quantidade e valor total nos inputs
-
-[] Criar função para o botão de excluir item da lista de ações antigas
+[] Talvez seja necessário bloquear a adição de açoes antigas se o usuário não tenha selecionado o código de uma ação.
+[] Todos os dados adicionados na area de acoes antigas tem q ser gravados no store, pare q quando for trocado de acao não se perca eles.

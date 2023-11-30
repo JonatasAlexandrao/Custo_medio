@@ -24,7 +24,7 @@
   //add acoes antigas
   let inputYearOld
   let inputQtd
-  let inputAveragePrice 
+  // let inputAveragePrice = "0,00"
   let inputTotalValue
 
   let arrayOldStocks = []
@@ -59,11 +59,9 @@
   }
 
   function onInput() {
-    inputAveragePrice.value = masc.inputRealCurrency(inputAveragePrice.value)
+    inputQtd.value = masc.inputNum(inputQtd.value)
 
     inputTotalValue.value = masc.inputRealCurrency(inputTotalValue.value)
-
-    inputQtd.value = masc.inputNum(inputQtd.value)
   }
 
   function addOldStocks() {
@@ -72,7 +70,13 @@
     const totalValid = (inputTotalValue.value).replace(",", ".") > 0
 
     if(qtdValid && totalValid) {
-      const infos = [inputYearOld.value, inputQtd.value, inputTotalValue.value, inputAveragePrice.value]
+
+      const qtd = parseFloat(inputQtd.value.replace(",", "."))
+      let total = parseFloat(inputTotalValue.value.replace(",", "."))
+
+      const averagePrice = (formulas.averagePrice(qtd, total)).toString().replace(".", ",")
+
+      const infos = [inputYearOld.value, inputQtd.value, inputTotalValue.value, masc.realCurrency(averagePrice) ]
 
       arrayOldStocks = [... arrayOldStocks, infos]
 
@@ -83,6 +87,7 @@
       });
 
       calculationInfos()
+      clearInputs()
 
       }
   }
@@ -94,6 +99,12 @@
     textSumOfTotal = formulas.sumOfTotal(filteredList, arrayOldStocks)
 
     textAveragePrice = formulas.averagePrice(textSumOfQuantity, textSumOfTotal)
+  }
+
+  function clearInputs() {
+    inputYearOld.value = ""
+    inputQtd.value = "0"
+    inputTotalValue.value = "0,00"
   }
 
     
@@ -112,25 +123,20 @@
 
 <div class="container-table-base">
 
-  <table class="table-base -average-price">
+  <table class="table-base -average-price 1">
     <tr class="old-stocks">
       <th>Ano</th>
       <th>Quantidade</th>
       <th>Valor Total</th>
-      <th>Preço Médio</th>
       <th></th>
     </tr>
     <tr class="old-stocks">
-      <td><input type="text" bind:this={inputYearOld} value={""}></td>
+      <td><input type="number" bind:this={inputYearOld} value={2022}></td>
       
       <td><input type="text" on:input={onInput} bind:this={inputQtd} value={0}></td>
 
       <td>
         <input type="text" on:input={onInput} bind:this={inputTotalValue} value={"0,00"}>
-      </td>
-
-      <td>
-        <input type="text" on:input={onInput} bind:this={inputAveragePrice} value={"0,00"} readonly>
       </td>
       
       <td><button on:click={addOldStocks}>+</button></td>
@@ -206,7 +212,6 @@
     grid-template-columns: 
       minmax(7rem, 10rem) /*Ano*/
       minmax(11rem, 14rem) /*Quantidade*/
-      minmax(12rem, 12rem) /*Preco Medio*/
       minmax(14rem, 16rem)  /*Valor Total*/
       minmax(7rem, 10rem)  /*Botao*/
     ;

@@ -6,8 +6,9 @@
   import formulas from "../../functions/formulas"
 
 
-  import AddOldStock from "./TableAveragePrice/TableAveragePrice.svelte";
+  import AddOldStock from "./TableAverageStocks/TableAverageStocks.svelte";
   import TableOldStocks from "./TableOldStocks/TableOldStocks.svelte";
+  import AddAverageStocks from "./AddAverageStocks/AddAverageStocks.svelte";
 
   let selectComponent = ""
   let tableHeader = ["Data", "Movimentação", "Código", "Qtd", "Preço", "Valor"]
@@ -31,6 +32,13 @@
   
 
   function searchStock() {
+
+    $NEGOTIATION.forEach(element => {
+      if(element.codigo == selectComponent) {
+        arrayOldStocks = element.acoesAntigas
+      } 
+    });
+    
     let list
 
     $NEGOTIATION.forEach(element => {
@@ -122,6 +130,8 @@
 </div>
 
 <div class="container-table-base">
+
+  <!-- <AddAverageStocks selectComponent={selectComponent}/> -->
 
   <table class="table-base -average-price 1">
     <tr class="old-stocks">

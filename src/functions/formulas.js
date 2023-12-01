@@ -4,9 +4,9 @@ const formulas = {
 
   sumOfQuantity: (filteredList, old) => {
 
-    let totalQtdOld = 0
+    let total = 0
     if(old) {
-      totalQtdOld = old.reduce((prev, elem) => {
+      total = old.reduce((prev, elem) => {
 
         if(elem[1])
           return prev + parseInt(elem[1])
@@ -29,15 +29,30 @@ const formulas = {
       }
     }, 0)
 
-      return (totalQtdOld + res)
+    if(total < 0 && res < 0) {
+      return 0
+    }
+    else if(total < 0) {
+      return res
+    }
+    else if(res < 0) {
+      return total
+    }
+    else {
+      return (total + res)
+    }
+
+
+
+      //return (totalQtdOld + res)
 
   },
 
   sumOfTotal: (filteredList, old) => {
 
-    let totalSumOld = 0
+    let total = 0
     if(old) {
-      totalSumOld = old.reduce((prev, elem) => {
+      total = old.reduce((prev, elem) => {
 
         if(elem[2])
           return prev + parseFloat(elem[2].replace(",", "."))
@@ -58,9 +73,21 @@ const formulas = {
       else {
        return prev
       }
-      }, 0)
+    }, 0)
 
-      return (totalSumOld + res)
+    if(total < 0 && res < 0) {
+      return 0
+    }
+    else if(total < 0) {
+      return res
+    }
+    else if(res < 0) {
+      return total
+    }
+    else {
+      return (total + res)
+    }
+     
 
   },
 

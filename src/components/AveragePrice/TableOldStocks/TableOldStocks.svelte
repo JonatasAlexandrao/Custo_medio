@@ -7,8 +7,7 @@
 
     arrayOldStocks.splice(index, 1)
     arrayOldStocks = arrayOldStocks
-    calculationInfos()
-    
+    calculationInfos()    
   }
 
 </script>

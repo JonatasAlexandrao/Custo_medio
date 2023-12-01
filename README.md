@@ -11,3 +11,5 @@
 -------------------------------------
 [] Talvez seja necessário bloquear a adição de açoes antigas se o usuário não tenha selecionado o código de uma ação.
 [] Todos os dados adicionados na area de acoes antigas tem q ser gravados no store, pare q quando for trocado de acao não se perca eles.
+
+[] Ações com apenas vendas na tabela de preço médio estão ficando com valores negativos.

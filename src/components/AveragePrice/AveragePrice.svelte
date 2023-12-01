@@ -11,6 +11,8 @@
   import AddAverageStocks from "./AddAverageStocks/AddAverageStocks.svelte";
 
   let selectComponent = ""
+  $: disabledInput = selectComponent ? false : true
+
   let tableHeader = ["Data", "Movimentação", "Código", "Qtd", "Preço", "Valor"]
   let filteredList = []
 
@@ -29,6 +31,9 @@
   let inputTotalValue
 
   let arrayOldStocks = []
+
+
+  
   
 
   function searchStock() {
@@ -121,12 +126,13 @@
 
 
 <div class="containerSelectStock">
-  <select name="" id="selectStock" bind:value={selectComponent}>
+  <label for=""> Selecione uma Ação: </label>
+  <select name="" id="selectStock" bind:value={selectComponent} on:change={searchStock}>
     {#each $negotiationsCodes as stocks}
       <option value={stocks}>{stocks}</option>
     {/each}
   </select>
-  <button on:click={searchStock}>Buscar</button>
+  <!-- <button on:click={searchStock}>Buscar</button> -->
 </div>
 
 <div class="container-table-base">
@@ -141,12 +147,12 @@
       <th></th>
     </tr>
     <tr class="old-stocks">
-      <td><input type="number" bind:this={inputYearOld} value={2022}></td>
+      <td><input type="number" bind:this={inputYearOld} value={2022} disabled={disabledInput}></td>
       
-      <td><input type="text" on:input={onInput} bind:this={inputQtd} value={0}></td>
+      <td><input type="text" on:input={onInput} bind:this={inputQtd} value={0} disabled={disabledInput}></td>
 
       <td>
-        <input type="text" on:input={onInput} bind:this={inputTotalValue} value={"0,00"}>
+        <input type="text" on:input={onInput} bind:this={inputTotalValue} value={"0,00"} disabled={disabledInput}>
       </td>
       
       <td><button on:click={addOldStocks}>+</button></td>
@@ -197,13 +203,16 @@
     width: 100%;
     
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    /*justify-items: center;*/
+    gap: .5rem;
 
     margin-bottom: 2rem;
   }
 
   .containerSelectStock #selectStock {
-    min-width: 10rem;
+    min-width: 8rem;
+    max-width: 18rem;
     border-radius: .3rem;
     padding: .5rem;
     margin-right: 1rem;

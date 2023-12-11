@@ -1,5 +1,4 @@
 import { derived, readable, writable } from "svelte/store";
-import masc from "../functions/masc";
 
 export const listNegotiations = writable([])
 
@@ -8,6 +7,9 @@ export const listBDR = writable([])
 export const listDividends = writable([])
 
 export const reportCodes = writable([])
+
+export const NEGOTIATION = writable([])
+
 
 export const annualReportCodes = derived(listReport, ($listReport) => {
   let list = []
@@ -21,7 +23,7 @@ export const annualReportCodes = derived(listReport, ($listReport) => {
 export const negotiationsCodes = derived(listNegotiations, ($listNegotiations) => {
   let list = []
   $listNegotiations.forEach(element => {
-    list.push(element.codigoNegociacao)
+    list.push(element.codigo)
   });
 
   const uniqList = [ ... new Set (list)]
@@ -30,8 +32,7 @@ export const negotiationsCodes = derived(listNegotiations, ($listNegotiations) =
 })
 
 
-
-export const NEGOTIATION = derived(listNegotiations, ($listNegotiations) => {
+/*export const NEGOTIATION = derived(listNegotiations, ($listNegotiations) => {
   let list = []
   $listNegotiations.forEach(element => {
     list.push(element.codigoNegociacao)
@@ -69,7 +70,7 @@ export const NEGOTIATION = derived(listNegotiations, ($listNegotiations) => {
 
 
   return newList
-})
+})*/
 
 export const LIST_Report_PRODUTO = derived( listReport, ($listReport) => {
 

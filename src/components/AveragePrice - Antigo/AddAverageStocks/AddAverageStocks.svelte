@@ -4,28 +4,69 @@
   import formulas from "../../../functions/formulas";
   import masc from "../../../functions/masc";
   import { NEGOTIATION } from "../../../stores/stores";
-
-  export let calculationInfos 
+  import TableOldStocks from "../TableOldStocks/TableOldStocks.svelte";
+  
   export let selectComponent
   $: disabledInput = selectComponent ? false : true
+  //$: !disabledInput ? initiation() : ""
 
-  // ===== INPUTS =====
+
   let inputYearOld
   let inputQtd
   let inputTotalValue
 
   let arrayOldStocks = []
 
+  let stockInfoSelect = {
+    acoesAntigas : [],
+    codigo : "",
+    dados : [],
+    precoMedio : 0,
+    quantidadeTotal : 0,
+    valorTotal : 0
+  }
+  let oldStocksFiltered = []
+
+  let averagePrice = 0
+  $: stockInfoSelect.precoMedio = averagePrice
+  let sumOfTotal = 0
+  $: stockInfoSelect.valorTotal = sumOfTotal
+  let sumOfQuantity = 0
+  $: stockInfoSelect.quantidadeTotal = sumOfQuantity
+  let datasFiltered = []
  
-  function onInput() {
-    inputQtd.value = masc.inputNum(inputQtd.value)
-    inputTotalValue.value = masc.inputRealCurrency(inputTotalValue.value)
+
+
+
+  function initiation() {
+    $NEGOTIATION.forEach(element => {
+      if(element.codigo == selectComponent) {
+        stockInfoSelect = element
+
+        averagePrice = element.precoMedio
+        sumOfQuantity = element.quantidadeTotal
+        sumOfTotal = element.valorTotal
+
+        datasFiltered = element.dados
+      } 
+    });
   }
 
-  function clearInputs() {
-    inputYearOld.value = "2022"
-    inputQtd.value = "0"
-    inputTotalValue.value = "0,00"
+  function testandoooo() {
+    $NEGOTIATION.forEach(element => {
+      if(element.codigo == selectComponent) {
+        stockInfoSelect = element
+        oldStocksFiltered = element.acoesAntigas  
+        console.log("element",element)   
+      } 
+    })
+  }
+ 
+  
+
+
+  function onInput() {
+
   }
 
   function addOldStocks() {
@@ -47,17 +88,44 @@
       $NEGOTIATION.forEach(element => {
         if(element.codigo == selectComponent) {
           element.acoesAntigas = arrayOldStocks
-        }
+        } 
+
       });
 
-    }
-    
       calculationInfos()
       clearInputs()
+      
+      console.log("----====",$NEGOTIATION)
+      //const teste = $NEGOTIATION
+      //$NEGOTIATION = teste
+      testandoooo()
+    }
+    
+  }
 
+  function calculationInfos() {
+
+    console.log("222222", datasFiltered, arrayOldStocks)
+    
+    sumOfQuantity = formulas.sumOfQuantity(datasFiltered, arrayOldStocks)
+    sumOfTotal = formulas.sumOfTotal(datasFiltered, arrayOldStocks)
+    averagePrice = formulas.averagePrice(sumOfQuantity, sumOfTotal)
+
+    console.log("aQUII", averagePrice, sumOfTotal, sumOfQuantity)
+    console.log("datasFiltered", datasFiltered)
+    console.log("stockInfoSelect", stockInfoSelect)
+
+    
+  }
+
+  function clearInputs() {
+    inputYearOld.value = "2022"
+    inputQtd.value = "0"
+    inputTotalValue.value = "0,00"
   }
 
 </script>
+
 
 <table class="table-base -average-price 1">
   <tr class="old-stocks">
@@ -78,6 +146,8 @@
     <td><button on:click={addOldStocks}>+</button></td>
   </tr>
 </table>
+
+<TableOldStocks selectComponent={selectComponent} calculationInfos={calculationInfos} oldStocksFiltered={oldStocksFiltered} stockInfoSelect={stockInfoSelect}/>
 
 
 <style>

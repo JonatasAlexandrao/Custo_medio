@@ -39,7 +39,13 @@ const formulas = {
       return total
     }
     else {
-      return (total + res)
+      const resFinal = (total + res)
+      if(resFinal) {
+        return resFinal
+      }
+      else {
+        return 0
+      }
     }
 
 

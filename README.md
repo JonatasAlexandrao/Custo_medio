@@ -9,7 +9,7 @@
 
 
 -------------------------------------
-[x] Talvez seja necessário bloquear a adição de açoes antigas se o usuário não tenha selecionado o código de uma ação.
-[x] Todos os dados adicionados na area de acoes antigas tem q ser gravados no store, pare q quando for trocado de acao não se perca eles.
+[] Refaturar o stores, pq as variaveis do tipo "derived" não estão sendo atribuidas no momento da criação dos elementos, isso causa um problema de atualização. Fica sendo obrigatório usar um evento para disparar a atualização delas ou uma gambiarra.
 
-[x] Ações com apenas vendas na tabela de preço médio estão ficando com valores negativos.
+ERRO:
+[] Quando se adiciona um valor de ações antigas em uma ação selecionada e em seguida troca a ação selecionada para adicionar outra açao antiga os valores anteriores são carregados juntos. Dessa forma tanto o valor adiciona como todos os valores adicionados para a outra açao são adicionados.

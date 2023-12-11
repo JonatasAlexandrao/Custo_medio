@@ -1,7 +1,7 @@
 <script>
   
   import readXlsxFile from 'read-excel-file'
-  import { listReport, listNegotiations, listBDR, listDividends } from '../../stores/stores';
+  import { listReport, listNegotiations, listBDR, listDividends, NEGOTIATION } from '../../stores/stores';
   import formatInfo from '../../functions/formatInfo';
 
   export let text = ""
@@ -49,13 +49,16 @@
         readXlsxFile(file).then((rows) => {array = rows })
         .then(() => {
           $listNegotiations = formatInfo.negotiations(array)
+
+
+          $NEGOTIATION = formatInfo.negotiations(array)
+          console.log("----->>$NEGOTIATION222", $NEGOTIATION)
         }) 
       }
     }
 
   }
 
-  
 
   function clearTable(table) {
     

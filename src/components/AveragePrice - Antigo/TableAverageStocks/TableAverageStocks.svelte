@@ -3,7 +3,7 @@
   import masc from "../../../functions/masc";
 
   export let tableHeader = []
-  export let filteredData = []
+  export let filteredList = []
 
 </script>
 
@@ -16,7 +16,7 @@
     </tr>
   </thead>
   <tbody>
-    {#each filteredData as row}
+    {#each filteredList as row}
       {#if row.codigoNegociacao}
         <tr>
           <td>{row.data}</td>

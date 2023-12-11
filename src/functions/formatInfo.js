@@ -1,5 +1,42 @@
 
+import masc from "./masc";
 
+function formatNegotiations2(array) {
+  let list = []
+  array.forEach(element => {
+    list.push(element.codigoNegociacao)
+  });
+
+  const uniqList = [ ... new Set (list)]
+
+  let newList = []
+
+  uniqList.forEach(code => {
+  newList.push({
+      codigo: code,
+      precoMedio: 0,
+      quantidadeTotal: 0,
+      valorTotal: 0,
+      acoesAntigas: [],
+      dados: []
+    })
+  });
+
+  array.forEach((data) => {
+    newList.forEach(el => {
+      if(data.codigoNegociacao == el.codigo) {
+        el.dados.push(data)
+      }
+    });
+  });
+
+  array.forEach(el => {
+    el.data = masc.formatDate(el.data)
+  })
+
+
+  return newList
+}
 
 
 const formatInfo = {
@@ -48,7 +85,8 @@ const formatInfo = {
       } 
     });
     list.shift()
-    return list
+    const formatList = formatNegotiations2(list)
+    return formatList
   },
 
   bdr: (data) => {

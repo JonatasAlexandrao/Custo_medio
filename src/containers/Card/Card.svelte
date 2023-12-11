@@ -1,6 +1,7 @@
 <script>  
   export let title = ""
   let maximize = false
+  let open = false
 </script>
 
 <div class="card-container" class:-active={maximize}>
@@ -8,12 +9,15 @@
   {#if title}
     <div class="title">
       <h2>{title}</h2>
-      <button on:click={ () => maximize = !maximize }>Abrir/fechar</button>
+      <button on:click={ () => {maximize = !maximize; open = !open} }>Abrir/fechar</button>
     </div>
   {/if}
 
   <div class="slot">
-    <slot></slot>
+    {#if open}
+      <slot></slot>
+    {/if}
+    
   </div>
   
 </div>

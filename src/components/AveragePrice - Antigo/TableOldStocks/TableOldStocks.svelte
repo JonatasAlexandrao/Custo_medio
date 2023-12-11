@@ -1,21 +1,56 @@
 <script>
 
-  export let oldStocksFiltered = []
+  import { NEGOTIATION } from "../../../stores/stores";
+
+  //export let oldStocksFiltered 
+  export let selectComponent = ""
+  //$: disabledInput = selectComponent ? true : false
+  //$: disabledInput ? initiation() : ""
   export let calculationInfos
 
+  export let stockInfoSelect = {
+    acoesAntigas : [],
+    codigo : "",
+    dados : [],
+    precoMedio : 0,
+    quantidadeTotal : 0,
+    valorTotal : 0
+  }
+
+  export let oldStocksFiltered = []
+  //$: oldStocksFiltered = $NEGOTIATION ? $NEGOTIATION : []
+  
+
+  /*$NEGOTIATION.forEach(element => {
+    if(element.codigo == selectComponent) {
+      stockInfoSelect = element
+      oldStocksFiltered = element.acoesAntigas  
+      console.log("element",element)   
+    } 
+  });*/
+
+
+    
+
+
   function removeItem(index) {
-        
+
+    
     oldStocksFiltered.splice(index, 1)
     oldStocksFiltered = oldStocksFiltered
     calculationInfos()    
   }
 
+  function teste() {
+    //initiation()
+    console.log("999999", $NEGOTIATION, stockInfoSelect, oldStocksFiltered)
+  }
 
 </script>
 
 <table class="table-base -average-price 2">
   <tr class="old-stocks">
-    <th>Ano</th>
+    <th on:click={teste}>Ano</th>
     <th>Quantidade</th>
     <th>Valor Total</th>
     <th>Preço Médio</th>

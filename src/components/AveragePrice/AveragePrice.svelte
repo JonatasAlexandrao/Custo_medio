@@ -60,6 +60,9 @@
 
     searchStock()
 
+    console.log("----->>>1111111",filteredData)
+    console.log("----->>>2222222",arrayOldStocks)  
+
     textSumOfQuantity = formulas.sumOfQuantity(filteredData, arrayOldStocks)
 
     textSumOfTotal = formulas.sumOfTotal(filteredData, arrayOldStocks)
@@ -75,6 +78,88 @@
     })
 
     pegarDadosAcoesAntigas()
+
+    if(textSumOfQuantity <= 0) {
+      textSumOfTotal = 0
+    }
+    if(textSumOfQuantity <= 0) {
+      textAveragePrice = 0
+    }
+
+
+  }
+
+  function calculationInfos222() {
+    searchStock()
+
+
+    let qtdTotalOld = 0
+    if(arrayOldStocks) {
+      qtdTotalOld = arrayOldStocks.reduce((prev, elem) => {
+
+        if(elem[1])
+          return prev + parseInt(elem[1])
+        else
+          return prev
+        
+      },0)
+    }
+
+    const qtdTotal = filteredData.reduce( (prev, elem) => {
+
+    if(elem.tipoMovimentacao === "Compra"){
+      return prev + elem.quantidade
+    }
+    else if(elem.tipoMovimentacao === "Venda"){
+      return prev - elem.quantidade
+    }
+    else {
+      return prev
+    }
+    }, 0)
+
+    let valueTotalOld = 0
+    if(arrayOldStocks) {
+      valueTotalOld = arrayOldStocks.reduce((prev, elem) => {
+
+        if(elem[2]) {
+          let newElem = parseFloat(elem[2].replace(".", ""))
+          newElem = parseFloat(elem[2].replace(",", "."))
+          return prev + newElem
+        }
+        else {
+          return prev
+        }
+          
+        
+      },0)
+    }
+
+    const valueTotal = filteredData.reduce( (prev, elem) => {
+
+    if(elem.tipoMovimentacao === "Compra"){
+      return prev + elem.valor
+    }
+    /*else if(elem.tipoMovimentacao === "Venda"){
+      return prev - elem.valor
+    }*/
+    else {
+      return prev
+    }
+    }, 0)
+
+    
+
+
+    pegarDadosAcoesAntigas()
+
+    /*if(textSumOfQuantity <= 0) {
+      textSumOfTotal = 0
+    }
+    if(textSumOfQuantity <= 0) {
+      textAveragePrice = 0
+    }*/
+
 
   }
 
@@ -118,14 +203,14 @@
     <div>
       <label for="">Valor Total:</label>
       <div class="text-box">
-        R$ {masc.realCurrency(textAveragePrice)}
+        R$ {masc.realCurrency(textSumOfTotal)}
       </div>
     </div>
 
     <div class="center">
       <label for="">Preço Médio:</label>
       <div class="text-box">
-        R$ {masc.realCurrency(textSumOfTotal)}
+        R$ {masc.realCurrency(textAveragePrice)}
       </div>
     </div>
     

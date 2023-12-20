@@ -13,9 +13,6 @@
   let inputYearOld
   let inputQtd
   let inputTotalValue
-
-  let arrayOldStocks = []
-
  
   function onInput() {
     inputQtd.value = masc.inputNum(inputQtd.value)
@@ -30,24 +27,27 @@
 
   function addOldStocks() {
 
+    let total = inputTotalValue.value
+    total = (inputTotalValue.value).replace(".", "")
+    total = total.replace(",", ".")
+
     const qtdValid = inputQtd.value > 0
-    const totalValid = (inputTotalValue.value).replace(",", ".") > 0
+    const totalValid = total > 0
 
     if(qtdValid && totalValid) {
-
       const qtd = parseFloat(inputQtd.value.replace(",", "."))
-      let total = parseFloat(inputTotalValue.value.replace(",", "."))
 
       const averagePrice = (formulas.averagePrice(qtd, total)).toString().replace(".", ",")
 
-      const infos = [inputYearOld.value, inputQtd.value, inputTotalValue.value, masc.realCurrency(averagePrice) ]
+      console.log("---averagePrice---", averagePrice)
 
-      arrayOldStocks = [... arrayOldStocks, infos]
+      const infos = [ inputYearOld.value, inputQtd.value, inputTotalValue.value, masc.realCurrency(averagePrice) ]
 
+      
       $NEGOTIATION.forEach(element => {
         if(element.codigo == selectComponent) {
-          element.acoesAntigas = arrayOldStocks
-        }
+          element.acoesAntigas = [...element.acoesAntigas, infos]
+        }      
       });
 
     }
@@ -55,6 +55,15 @@
       calculationInfos()
       clearInputs()
 
+      console.log("AQUI----->>>", $NEGOTIATION)
+
+  }
+
+  function focusEnd(input) {
+    if(input){
+      const len = input.value.length
+      input.setSelectionRange(len, len)
+    } 
   }
 
 </script>
@@ -69,10 +78,10 @@
   <tr class="old-stocks">
     <td><input type="number" bind:this={inputYearOld} value={2022} disabled={disabledInput}></td>
     
-    <td><input type="text" on:input={onInput} bind:this={inputQtd} value={0} disabled={disabledInput}></td>
+    <td><input type="text" on:input={onInput} bind:this={inputQtd} value={0} disabled={disabledInput} on:click={()=>focusEnd(inputQtd)}></td>
 
     <td>
-      <input type="text" on:input={onInput} bind:this={inputTotalValue} value={"0,00"} disabled={disabledInput}>
+      <input type="text" on:input={onInput} bind:this={inputTotalValue} value={"0,00"} disabled={disabledInput} on:click={()=>focusEnd(inputTotalValue)}>
     </td>
     
     <td><button on:click={addOldStocks}>+</button></td>

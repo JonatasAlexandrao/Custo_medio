@@ -3,8 +3,19 @@ const masc = {
 
   realCurrency : (text) => {
     if(text) {
-      
-      return text.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+ 
+      text = text.toString()
+      text = text.replace(",", ".")
+      text = parseFloat(text)
+
+      let formatted = text.toLocaleString('pt-BR', {
+        currency: 'BRL',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      })
+
+      return formatted
+
     }
     else {
       console.log("Erro mascara realCurrency")
@@ -45,41 +56,34 @@ const masc = {
   },
 
   inputRealCurrency : (text) => {
-    if(text) {
-      
-      text.replace(/[^0-9]/g, '')
-      let num = text
-      console.log("num", num)
+   
+    let newValue = text;
 
-      if(num == '' || num.length < 3) {
-        num = '0,00'
-      }
+    if(newValue == '') { newValue = '0,00' }
 
-      num = num.replace(/[^0-9]/g, '')
+    newValue = newValue.replace(/\D/g, ""); // Remove todos os não dígitos
 
-      num = num.replace(',', '')
-      num = num.replace('.', '')
+    if(newValue.length == 2) { newValue = newValue.replace(/(\d{2}$)/g, '00,'+'$1') }
 
-      num = num.replace(/(^\d{2}$)/g, '0,'+'$1')
-      num = num.replace(/(\d)(\d{2}$)/g, '$1'+','+'$2')
-      num = num.replace(/(00,)(\d{2}$)/g, '0,'+'$2')
-      num = num.replace(/(0)(\d{1})(,)(\d{2}$)/g, '$2'+'$3'+'$4')
-      num = num.replace(/(\d)(\d{3})(,\d{2}$)/g, '$1'+'.'+'$2'+'$3')
+    newValue = newValue.replace(/(\d+)(\d{2})$/, "$1,$2"); // Adiciona a parte de centavos
+
+    if(newValue.length == 5) { 
+      newValue = newValue.replace(/(00,)(\d{2}$)/g, '0,'+'$2')
+      newValue = newValue.replace(/(0)(\d{1})(,)(\d{2}$)/g, '$2'+'$3'+'$4')
+    }
+
+    newValue = newValue.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."); // Adiciona pontos a cada três dígitos
     
-      return num
-    }
-    else {
-      console.log("Erro mascara realCurrency")
-      return ""
-    }
+    return newValue
+
   },
 
   inputNum : (value) => {
 
-      let num
-      num = value.replace(/[^0-9]/g, '')
-      num = num.replace(/(0)(\d)/g, '$2')
-      return num
+    let num
+    num = value.replace(/[^0-9]/g, '')
+    num = num.replace(/(0)(\d)/g, '$2')
+    return num
 
   }
 

@@ -2,6 +2,7 @@
 
   export let oldStocksFiltered = []
   export let calculationInfos
+  
 
   function removeItem(index) {
         
@@ -15,7 +16,7 @@
 
 <table class="table-base -average-price 2">
   <tr class="old-stocks">
-    <th>Ano</th>
+    <th on:click={() => console.log(oldStocksFiltered)}>Ano</th>
     <th>Quantidade</th>
     <th>Valor Total</th>
     <th>Preço Médio</th>

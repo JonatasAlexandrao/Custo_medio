@@ -29,28 +29,10 @@ const formulas = {
       }
     }, 0)
 
-    if(total < 0 && res < 0) {
-      return 0
-    }
-    else if(total < 0) {
-      return res
-    }
-    else if(res < 0) {
-      return total
-    }
-    else {
-      const resFinal = (total + res)
-      if(resFinal) {
-        return resFinal
-      }
-      else {
-        return 0
-      }
-    }
 
-
-
-      //return (totalQtdOld + res)
+    //return res < 1 ? total : (total + res)
+    return (total + res)
+    
 
   },
 
@@ -60,10 +42,15 @@ const formulas = {
     if(old) {
       total = old.reduce((prev, elem) => {
 
-        if(elem[2])
-          return prev + parseFloat(elem[2].replace(",", "."))
-        else
+        if(elem[2]) {
+          let newElem = parseFloat(elem[2].replace(".", ""))
+          newElem = parseFloat(elem[2].replace(",", "."))
+          return prev + newElem
+        }
+        else {
           return prev
+        }
+          
         
       },0)
     }
@@ -73,31 +60,22 @@ const formulas = {
       if(elem.tipoMovimentacao === "Compra"){
         return prev + elem.valor
       }
-      else if(elem.tipoMovimentacao === "Venda"){
+      /*else if(elem.tipoMovimentacao === "Venda"){
         return prev - elem.valor
-      }
+      }*/
       else {
        return prev
       }
     }, 0)
 
-    if(total < 0 && res < 0) {
-      return 0
-    }
-    else if(total < 0) {
-      return res
-    }
-    else if(res < 0) {
-      return total
-    }
-    else {
-      return (total + res)
-    }
-     
+
+    return (total + res)
 
   },
 
   averagePrice: (sumQtd, sumTotal) => {
+    console.log("sumTotal", sumTotal)
+    console.log("sumQtd", sumQtd)
     return sumTotal / sumQtd
   }
   

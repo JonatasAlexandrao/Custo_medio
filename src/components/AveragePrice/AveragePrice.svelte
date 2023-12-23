@@ -3,7 +3,6 @@
 
   import { negotiationsCodes, NEGOTIATION, LIST_Report_PRODUTO, listReport } from "../../stores/stores";
   import masc from "../../functions/masc";
-  import formulas from "../../functions/formulas"
 
   import TableOldStocks from "./TableOldStocks/TableOldStocks.svelte";
   import AddAverageStocks from "./AddAverageStocks/AddAverageStocks.svelte";
@@ -25,6 +24,13 @@
   let oldStocksFiltered
   let arrayOldStocks = []
 
+  //-------------------------
+
+  let code
+  let averagePrice
+  let quantityTotal
+  let valueTotal
+
 
   function searchStock() {
 
@@ -37,6 +43,12 @@
     $NEGOTIATION.forEach(element => {
       if(element.codigo == selectComponent) {
         filteredData = element.dados
+
+        code = element.codigo
+        averagePrice = element.precoMedio
+        quantityTotal = element.quantidadeTotal
+        valueTotal = element.valorTotal
+
         instituicao = filteredData[0].instituicao
       } 
     });
@@ -57,25 +69,66 @@
   }
 
   function calculationInfos() {
-
     searchStock()
 
-    console.log("----->>>1111111",filteredData)
-    console.log("----->>>2222222",arrayOldStocks)  
+    let quantity = 0
+    let value = 0
+    let finalAveragePrice = 0
 
-    textSumOfQuantity = formulas.sumOfQuantity(filteredData, arrayOldStocks)
+    let oldQuantity = 0
+    let oldValue = 0
+    let oldAveragePrice = 0
 
-    textSumOfTotal = formulas.sumOfTotal(filteredData, arrayOldStocks)
 
-    textAveragePrice = formulas.averagePrice(textSumOfQuantity, textSumOfTotal)
+    if(arrayOldStocks) {
 
-    $NEGOTIATION.forEach(element => {
-      if(element.codigo == selectComponent) {
-        element.quantidadeTotal = textSumOfQuantity
-        element.valorTotal = textSumOfTotal
-        element.precoMedio = textAveragePrice
+      arrayOldStocks.forEach(element => {
+        
+        if(element[1]) { oldQuantity = oldQuantity + parseInt(element[1]) }
+
+        if(element[2]) {
+          let newElem = element[2].replace(".", "")
+          newElem = newElem.replace(".", "")
+          newElem = parseFloat(newElem.replace(",", "."))
+          oldValue = oldValue + newElem
+
+        }
+
+        if(element[1] && element[2]){
+          oldAveragePrice = oldValue / oldQuantity
+        }
+        
+      });
+
+    }
+
+
+    quantity = oldQuantity
+    value = oldValue
+    finalAveragePrice = oldAveragePrice
+
+
+    filteredData.forEach(elem => {
+      if(elem.tipoMovimentacao === "Compra"){
+        quantity = quantity + elem.quantidade
+        value = value + elem.valor
+        finalAveragePrice = value / quantity
+      }
+      else if(elem.tipoMovimentacao === "Venda"){
+        quantity = quantity - elem.quantidade
+
+        // Calcular preço médio pós-venda
+        const totalPartial =  elem.quantidade * finalAveragePrice
+        value = value - totalPartial
+        finalAveragePrice = value / quantity
       } 
-    })
+    });
+
+    textSumOfQuantity = quantity
+    textSumOfTotal = value
+    textAveragePrice = finalAveragePrice
+
+
 
     pegarDadosAcoesAntigas()
 
@@ -85,80 +138,6 @@
     if(textSumOfQuantity <= 0) {
       textAveragePrice = 0
     }
-
-
-  }
-
-  function calculationInfos222() {
-    searchStock()
-
-
-    let qtdTotalOld = 0
-    if(arrayOldStocks) {
-      qtdTotalOld = arrayOldStocks.reduce((prev, elem) => {
-
-        if(elem[1])
-          return prev + parseInt(elem[1])
-        else
-          return prev
-        
-      },0)
-    }
-
-    const qtdTotal = filteredData.reduce( (prev, elem) => {
-
-    if(elem.tipoMovimentacao === "Compra"){
-      return prev + elem.quantidade
-    }
-    else if(elem.tipoMovimentacao === "Venda"){
-      return prev - elem.quantidade
-    }
-    else {
-      return prev
-    }
-    }, 0)
-
-    let valueTotalOld = 0
-    if(arrayOldStocks) {
-      valueTotalOld = arrayOldStocks.reduce((prev, elem) => {
-
-        if(elem[2]) {
-          let newElem = parseFloat(elem[2].replace(".", ""))
-          newElem = parseFloat(elem[2].replace(",", "."))
-          return prev + newElem
-        }
-        else {
-          return prev
-        }
-          
-        
-      },0)
-    }
-
-    const valueTotal = filteredData.reduce( (prev, elem) => {
-
-    if(elem.tipoMovimentacao === "Compra"){
-      return prev + elem.valor
-    }
-    /*else if(elem.tipoMovimentacao === "Venda"){
-      return prev - elem.valor
-    }*/
-    else {
-      return prev
-    }
-    }, 0)
-
-    
-
-
-    pegarDadosAcoesAntigas()
-
-    /*if(textSumOfQuantity <= 0) {
-      textSumOfTotal = 0
-    }
-    if(textSumOfQuantity <= 0) {
-      textAveragePrice = 0
-    }*/
 
 
   }

@@ -27,21 +27,21 @@
 
   function addOldStocks() {
 
-    let total = inputTotalValue.value
-    total = (inputTotalValue.value).replace(".", "")
-    total = total.replace(",", ".")
+    const qtd = inputQtd.value
+
+    let text = inputTotalValue.value
+    let total = text.replace(".", "")
+    total = total.replace(".", "")
+    total = parseFloat(total.replace(",", "."))
 
     const qtdValid = inputQtd.value > 0
     const totalValid = total > 0
 
     if(qtdValid && totalValid) {
-      const qtd = parseFloat(inputQtd.value.replace(",", "."))
+      
+      const averagePrice = total / qtd
 
-      const averagePrice = (formulas.averagePrice(qtd, total)).toString().replace(".", ",")
-
-      console.log("---averagePrice---", averagePrice)
-
-      const infos = [ inputYearOld.value, inputQtd.value, inputTotalValue.value, masc.realCurrency(averagePrice) ]
+      const infos = [ inputYearOld.value, qtd, inputTotalValue.value, masc.realCurrency(averagePrice) ]
 
       
       $NEGOTIATION.forEach(element => {
@@ -54,8 +54,6 @@
     
       calculationInfos()
       clearInputs()
-
-      console.log("AQUI----->>>", $NEGOTIATION)
 
   }
 

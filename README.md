@@ -6,6 +6,7 @@
 
 ------------------------------------------------
 # Venda de Ações não altera o preço médio!
+# Quando for calcular o valor total depois de uma venda, se faz o preço médio vezes a quantidade vendida e esse valor é reduzido do valor total q vc tem assim é só dividir esse total pela quantidade q sobrou de ações q vc vai ter o preço médio, q será exatamente a o valor q já era antes pois venda não muda preço médio.
 ------------------------------------------------
 
 

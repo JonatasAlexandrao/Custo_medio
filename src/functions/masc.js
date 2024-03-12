@@ -1,21 +1,17 @@
 
 const masc = {
 
-  realCurrency : (text) => {
-    if(text) {
- 
-      text = text.toString()
-      text = text.replace(",", ".")
-      text = parseFloat(text)
-
-      let formatted = text.toLocaleString('pt-BR', {
-        currency: 'BRL',
-        minimumFractionDigits: 2,
+  realCurrency : (number) => {
+    if(number) {   
+      const options = { 
+        currency: "BRL", minimumFractionDigits: 2,
         maximumFractionDigits: 2
-      })
+      }
+      return number.toLocaleString("pt-BR", options)
 
-      return formatted
-
+    }
+    else if (number == 0) {
+      return 0
     }
     else {
       console.log("Erro mascara realCurrency")
@@ -44,12 +40,12 @@ const masc = {
   },
 
   formatDate : (date) => {
-    const testeDate = new Date(date)
+    /*const testeDate = new Date(date)
     let isDate = !isNaN(testeDate.getTime())
-    let newDate = date
+    let newDate = date*/
 
     if(isDate) {
-      newDate = date.toLocaleDateString('pt-BR', {timeZone: 'UTC'})
+      //newDate = date.toLocaleDateString('pt-BR', {timeZone: 'UTC'})
     }
 
     return newDate

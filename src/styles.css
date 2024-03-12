@@ -32,7 +32,13 @@ input, button, select, textarea { font-family: inherit; font-size: inherit; }
   -webkit-text-size-adjust: 100%;
 }
 
-body { font-size: 1.6rem;}
+body { 
+  display: grid;
+  justify-content: center;
+
+  font-size: 1.6rem;
+  margin: 2rem;
+}
 
 input,
 button {

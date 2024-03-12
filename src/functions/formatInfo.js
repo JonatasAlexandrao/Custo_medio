@@ -7,6 +7,11 @@ function formatNegotiations2(array) {
     list.push(element.codigoNegociacao)
   });
 
+
+  list = [ ... new Set (list)]
+  //ordem alfabetica
+  list = list.sort(Intl.Collator().compare)
+  
   const uniqList = [ ... new Set (list)]
 
   let newList = []
@@ -22,6 +27,7 @@ function formatNegotiations2(array) {
     })
   });
 
+
   array.forEach((data) => {
     newList.forEach(el => {
       if(data.codigoNegociacao == el.codigo) {
@@ -30,16 +36,60 @@ function formatNegotiations2(array) {
     });
   });
 
-  array.forEach(el => {
+  /*array.forEach(el => {
     el.data = masc.formatDate(el.data)
-  })
+  })*/
+  
 
+  //return formatNegotiations3(newList) 
+  return newList
+}
+
+function joinEqualCodes(array) {
+  let list = array
+  const newList = list.filter(element => {
+    let test = true
+    const codeNoF = element.codigo.replace(/.$/, '');
+
+    if(element.codigo.substr(-1) == "F"){
+      
+      list.forEach(elem => {
+        if(elem.codigo === codeNoF) {     
+          elem.dados = [...elem.dados, ... element.dados]
+          test = false
+        }
+      })
+    } 
+    return test
+
+  })
 
   return newList
 }
 
 
+function sortCodeListByPosition(array) {
+    
+  let list = array
+
+  list.forEach(element => {
+    element.dados = element.dados.sort((a, b) => a.posicao - b.posicao)
+  });
+
+  return list
+}
+
+
+
+
 const formatInfo = {
+
+  sortListByPosition: (array) => {
+    
+    const list = array.sort((a, b) => a.posicao - b.posicao)
+  
+    return list
+  },
 
   report: (data) => {
     let list = []
@@ -68,11 +118,26 @@ const formatInfo = {
   },
 
   negotiations: (data) => {
+
     let list = []
-    data.forEach(element => {
+    let array = data
+    array.shift()
+    array.reverse()
+    
+    array.forEach((element, index) => {  
+
       if (element[5]) {
+
+        let data = element[0].toString()
+
+        let [day, month, year] = [...data.split("/")]
+
         list.push({
-          data: element[0], 
+          posicao: index+1,
+          dia:day,
+          mes:month,
+          ano:year, 
+          data: data,
           tipoMovimentacao: element[1],
           mercado: element[2],
           prazoVencimento: element[3],
@@ -84,9 +149,61 @@ const formatInfo = {
         })
       } 
     });
-    list.shift()
-    const formatList = formatNegotiations2(list)
-    return formatList
+
+    list = formatInfo.sortListByPosition(list)
+
+    return list
+  },
+
+  negotiationsByCode: (array) => {
+    let list = []
+    array.forEach(element => {
+      list.push(element.codigoNegociacao)
+    });
+  
+  
+    list = [ ... new Set (list)]
+    //ordem alfabetica
+    list = list.sort(Intl.Collator().compare)
+    
+    const uniqList = [ ... new Set (list)]
+  
+    let newList = []
+  
+    uniqList.forEach(code => {
+    newList.push({
+        codigo: code,
+        precoMedio: 0,
+        quantidadeTotal: 0,
+        valorTotal: 0,
+        acoesAntigas: [],
+        dados: []
+      })
+    });
+  
+    
+  
+    array.forEach((data) => {
+      const dataAndMore = {
+        ...data, 
+        quantidadeParcial:0,
+        precoMedioParcial: 0, 
+        valorTotalParcial: 0,
+        lucroTransacao: 0
+      }
+      newList.forEach(el => {
+        if(data.codigoNegociacao == el.codigo) {
+          el.dados.push(dataAndMore)
+        }
+        
+      });
+    });
+  
+    newList = joinEqualCodes(newList)
+    newList = sortCodeListByPosition(newList)
+
+    return newList
+
   },
 
   bdr: (data) => {

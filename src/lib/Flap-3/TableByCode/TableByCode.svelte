@@ -2,6 +2,7 @@
 <script>
 
   import masc from "$functions/masc";
+  import TdData from "$Components/TdData/TdData.svelte";
 
   export let negotiationByCode
   export let ListNegotiationCodes
@@ -42,8 +43,11 @@
       if(select_filterQtd === "true") {
         list = list.filter(elem => elem.quantidadeTotal > 0)
       }
-      else if (select_filterQtd === "false") {
-        list = list.filter(elem => elem.quantidadeTotal <= 0)
+      else if (select_filterQtd === "zero") {
+        list = list.filter(elem => elem.quantidadeTotal == 0)
+      }
+      else if (select_filterQtd === "negative") {
+        list = list.filter(elem => elem.quantidadeTotal < 0)
       }
       
     }
@@ -85,7 +89,8 @@
     <select name="" id="filterQuantidade" bind:value={select_filterQtd} on:change={filterInfo}>
       <option value=""></option>
       <option value="true">Verdadeiro</option>
-      <option value="false">Falso</option>
+      <option value="zero">Falso</option>
+      <option value="negative">Negativo</option>
     </select>
   </span>
 
@@ -106,10 +111,10 @@
     <tbody>
       {#each filteredTable as stock}
       <tr>
-        <td on:click={copyText(stock.codigo)}> {stock.codigo} </td> 
-        <td on:click={copyText(stock.quantidadeTotal)}> {stock.quantidadeTotal} </td>
-        <td on:click={copyText(masc.realCurrency(stock.precoMedio))}> {masc.realCurrency(stock.precoMedio)} </td>
-        <td on:click={copyText(masc.realCurrency(stock.valorTotal))}> {masc.realCurrency(stock.valorTotal)} </td>
+        <TdData data={stock.codigo}/>
+        <TdData data={stock.quantidadeTotal}/>
+        <TdData data={masc.realCurrency(stock.precoMedio)}/>
+        <TdData data={masc.realCurrency(stock.valorTotal)}/>
       </tr>
       {/each}
         

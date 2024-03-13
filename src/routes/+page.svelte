@@ -3,7 +3,7 @@
 
   import readXlsxFile from 'read-excel-file'
 
-  import Card from '$lib/Card/Card.svelte';
+  import Card from '$Components/Card/Card.svelte';
   import GeneralTable from '$lib/Flap-2/GeneralTable/GeneralTable.svelte';
   import TableByCode from '../lib/Flap-3/TableByCode/TableByCode.svelte';
   import InfoPerMonth from '../lib/Flap-4/InfoPerMonth/InfoPerMonth.svelte';

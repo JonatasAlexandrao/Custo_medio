@@ -8,7 +8,10 @@ const config = {
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
 		alias: {
 			'$store': './src/store',
-			'$functions': './src/functions'
+			'$functions': './src/functions',
+			'$lib': './src/lib',
+			'$Components': './src/lib/Components'
+
 		},
 		adapter: adapter()
 	}

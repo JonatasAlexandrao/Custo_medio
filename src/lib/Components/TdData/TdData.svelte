@@ -5,13 +5,12 @@
 
   function copyText(text) {
     console.log("text",text)
-    if(text) { 
-      navigator.clipboard.writeText(text)
-      disable = false
-      setTimeout(() => {
-        disable = true
-      }, 1000)
-    }
+    
+    navigator.clipboard.writeText(text)
+    disable = false
+    setTimeout(() => {
+      disable = true
+    }, 1000)
   }
 
 </script>

@@ -1,12 +1,12 @@
 <script>
 
   import masc from "$functions/masc";
+  import TdData from "$Components/TdData/TdData.svelte";
   import { TOTAL_SALES_MONTH, TOTAL_PROFIT_MONTH, DAY_TRADE_PER_MONTH } from '$store/store'
-  import TableRow from "./TableRow/TableRow.svelte";
 
   const salesMonth = $TOTAL_SALES_MONTH
   const profitMonth = $TOTAL_PROFIT_MONTH
-  const profitDayTrade = $DAY_TRADE_PER_MONTH
+  const profitDayTrade = totalProfit($DAY_TRADE_PER_MONTH) 
   const months = [
     "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
   ]
@@ -14,10 +14,20 @@
     "Mes", "Venda Total", "Lucro Total", "Lucro DayTrade"
   ]
 
+  function totalProfit(datas) {
+    let res = ""
+    if(datas) {
+      res = datas.map((el) => {
+        return el.totalLucro
+      })
+    }
+    
+    return res
+  }
+
 </script>
 
-<div class="container-table-base -infoPerMonth">
-  
+<div class="container-table-base -infoPerMonth">  
   <table class="table-base">
     <thead>
       <tr>
@@ -29,10 +39,10 @@
     <tbody>
       {#each months as month, index}
         <tr>
-          <TableRow data={month}/>
-          <TableRow data={masc.realCurrency(salesMonth[index])}/>
-          <TableRow data={masc.realCurrency(profitMonth[index])}/>
-          <TableRow data={masc.realCurrency(profitDayTrade[index].totalLucro)}/>
+          <TdData data={month}/>
+          <TdData data={masc.realCurrency(salesMonth[index])}/>
+          <TdData data={masc.realCurrency(profitMonth[index])}/>
+          <TdData data={masc.realCurrency(profitDayTrade[index])}/>
         </tr>
       {/each}
       

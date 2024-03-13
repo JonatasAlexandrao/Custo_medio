@@ -5,6 +5,8 @@
 
 [] Tabela não está responsiva no header, por enquanto foi posto um max-header: 70vh; 
 
+[] O Codigo BBSE3 está com quantidade zerada mas seu valor ainda está aparecendo e o preço médio fica infinito
+
 ========= Melhorias =========
 
 [] Tabela está ocupando muito espaço, acho melhor criar um botão para poder minimizala.
@@ -68,7 +70,5 @@
   - vai ser necessário buscar a posição de um item na tabela para por a bonificação?
   [x] Em bonificação é melhor q se pesquise a posição q foi digitada e verifique se existe pq se não a entrada pode ir parar em algum lugar errado
   [] talvez para facilitar pro usuario quando se clicar na tabela ele poderia puxar a posição
-  
-  [] Criar um componente que substitua o select para que o usuário possa digitar e filtrar os itens do combo box
 
   [] Melhorar a animaçao do texto Copiado!

@@ -138,8 +138,9 @@
 <style>
 
   .container-filter-settings {
+    width: 100%;
     display: grid;
-    grid-template-columns: repeat(3, minmax(5rem, 15rem)) minmax(3rem, 10rem);
+    grid-template-columns: repeat(3, minmax(5rem, 15rem));
     margin-bottom: 1rem;
     justify-content: center;
     

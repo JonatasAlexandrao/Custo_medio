@@ -54,7 +54,8 @@
 
 <style>
   .table-title-daytrade {
-    width: 100%;
+    min-width: 40rem;
+    max-width: 57rem;
     height: 3.5rem;
 
     display: grid;
@@ -82,6 +83,12 @@
   .table-base tr {
     display: grid;
     justify-content: center;  
+  }
+
+  .-daytrade-table {
+    
+    display: grid;
+    justify-content: center;
   }
 
   .-daytrade-table .table-base tr{

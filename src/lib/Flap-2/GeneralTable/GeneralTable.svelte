@@ -11,8 +11,6 @@ let tableHeader = ["Posição", "Data", "Movimentação", "Instituição", "Cód
 
 let tableHeaderAdd = ["Pos.", "Código", "Qtd", "Preço", "Valor"]
 
-
-//let keys = getKeys()
 let select_filterMovimentacao
 let select_filterData
 let select_filterCodigo
@@ -353,6 +351,8 @@ function optionSelected() {
   /*---------------------------------*/
 
   .container-add-table-entry {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     border: .2rem solid #a3a3a3 ;
 
@@ -361,6 +361,9 @@ function optionSelected() {
     margin-bottom: 1rem;
   }
 
+  .container-add-table-entry .table-base {
+    border: none;
+  }
   .container-add-table-entry .table-base tr{
     display: grid;
     justify-content: center;  
@@ -400,20 +403,15 @@ function optionSelected() {
 
   .container-add-table-entry > .add-entry {
     width: 100%;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: 4rem;
-    justify-items: center;
+    display: flex;
+    justify-content: center;
     align-items: center;
+    gap: 3rem;
     padding: .3rem;
-    
-    border: .2rem solid #a3a3a3;
+
   }
 
   .container-add-table-entry > .add-entry span {
-    width: 100%;
-    height: 100%;
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -442,7 +440,7 @@ function optionSelected() {
   /* ========== Negociacoes ============*/
   .container-table-base.-negotiation .table-base tr{
     grid-template-columns: 
-      minmax(7rem, 14rem) /*1 Posicao*/
+      minmax(7rem, 7rem) /*1 Posicao*/
       minmax(10rem, 14rem) /*5 data*/
       minmax(10rem, 12rem) /*6 Movimentacao*/
       minmax(14rem, 20rem) /*9 Instituicao*/

@@ -3,14 +3,14 @@
 
   import readXlsxFile from 'read-excel-file'
 
+  import { NEGOTIATION, NEGOTIATION_BY_CODE, ListNegotiationCodes } from '$store/store'
+
   import Card from '$Components/Card/Card.svelte';
   import GeneralTable from '$lib/Flap-2/GeneralTable/GeneralTable.svelte';
   import TableByCode from '../lib/Flap-3/TableByCode/TableByCode.svelte';
   import InfoPerMonth from '../lib/Flap-4/InfoPerMonth/InfoPerMonth.svelte';
-
-  import formatInfo from '$functions/formatInfo';
-  import { NEGOTIATION, NEGOTIATION_BY_CODE, ListNegotiationCodes } from '$store/store'
   import TableDayTrade from '../lib/Flap-5/TableDayTrade/TableDayTrade.svelte';
+  import formatInfo from '$functions/formatInfo';
   
 
   let text = "Selecione a Planilha de Negociações da B3"
@@ -18,7 +18,6 @@
   let file
 
   function readFile(event) {
-    //clearTable("Negociacoes")
     file = event.target.files[0]
     let array = []
 
@@ -29,14 +28,6 @@
       })
     }
   }
-
-  function click() {
-    console.log("$NEGOTIATION", $NEGOTIATION)
-    //console.log("$NEGOTIATION_BY_CODE", $NEGOTIATION_BY_CODE)
-    //console.log("ListNegotiationCodes", $ListNegotiationCodes)
-
-  }
-
   
 </script>
 
@@ -46,10 +37,7 @@
   <div class="search-file">
 
     <label for="spreadsheet"> {text} </label>
-    <div> 
-      <input type="file" on:change={readFile} bind:this={input} id="spreadsheet">
-      <button on:click={click}>OK</button>
-    </div>
+    <input type="file" on:change={readFile} bind:this={input} id="spreadsheet">
     
   </div>
 
@@ -70,6 +58,12 @@
 <Card title="Tabela DayTrade" idName="flap-5">
   <TableDayTrade />
 </Card>
+
+<style>
+  .search-file input{
+    width: 90%;
+  }
+</style>
 
 
 

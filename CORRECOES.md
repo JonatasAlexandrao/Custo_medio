@@ -72,3 +72,7 @@
   [] talvez para facilitar pro usuario quando se clicar na tabela ele poderia puxar a posição
 
   [] Melhorar a animaçao do texto Copiado!
+
+  [x] Em Tabela por Codigo
+    [x] No combo box de código poderia aparecer somente os códigos de ações q tenham quantidade positiva.
+    

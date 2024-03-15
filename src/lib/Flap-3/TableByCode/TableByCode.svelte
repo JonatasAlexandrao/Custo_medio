@@ -6,6 +6,7 @@
 
   export let negotiationByCode
   export let ListNegotiationCodes
+  $: listCode = ListNegotiationCodes ? createListCode(negotiationByCode) : ""
 
   let filteredTable = negotiationByCode
   let select_filterCodigo
@@ -19,6 +20,19 @@
   let instituicao = ""
 
   let tableHeaderCode = [ "Código", "Qtd", "Preço Médio", "Valor"]
+
+  function createListCode(list) {
+
+    let arrayCode = []
+
+    list.forEach(elem => {
+      if(elem.quantidadeTotal > 0) {
+        arrayCode.push(elem.codigo)
+      }
+    })
+
+    return arrayCode
+  }
 
   function getSelectedCodeInfo(array) {
     quantidade = array[0].quantidadeTotal
@@ -56,7 +70,7 @@
   }
 
   function cleanFilters() {
-
+    createListCode(ListNegotiationCodes)
     select_filterCodigo = ""
     select_filterQtd = ""
     filterInfo()
@@ -64,7 +78,7 @@
   }
 
   function copyText(text) {
-    console.log("111", text)
+    console.log("copyText", text)
     if(text) { 
       navigator.clipboard.writeText(text)
     }
@@ -78,7 +92,7 @@
     <label for="filterCodigo">Código</label>
     <select name="" id="filterCodigo" bind:value={select_filterCodigo} on:change={filterInfo}>
       <option value=""></option>
-      {#each ListNegotiationCodes as codes}
+      {#each listCode as codes}
         <option value="{codes}">{codes}</option>
       {/each}
     </select>
@@ -94,7 +108,10 @@
     </select>
   </span>
 
-  <button class="btn-clean-filters" on:click={cleanFilters}>Limpar</button>
+  <div>
+    <button class="btn" on:click={cleanFilters}>Limpar</button>
+    <button class="btn -error">Corrigir Erros</button>
+  </div>
 
 </div>
 
@@ -147,6 +164,7 @@
   }
 
   .container-filter-settings span {
+    height: 100%;
     border: .2rem solid #a3a3a3;
     border-collapse: collapse;
 
@@ -156,10 +174,11 @@
     flex-direction: column;
    
   }
-  .container-filter-settings .btn-clean-filters {
-    margin: 1rem 1rem;
+  .container-filter-settings .btn {
+    width: 100%;
+    margin: 0 1rem .5rem 1rem;
   }
-
+  
   .container-table-base .table-base tr {
     display: grid;
     justify-content: center;  

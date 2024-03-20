@@ -4,7 +4,7 @@
   import { NEGOTIATION } from '$store/store'
   import formatInfo from "$functions/formatInfo";
   import masc from "$functions/masc";
-  import SelectBox from './SelectBox/SelectBox.svelte';
+  import SelectBox from '$Components/SelectBox/SelectBox.svelte';
   export let negotiationInfo
   export let ListNegotiationCodes
   
@@ -353,7 +353,7 @@
   
   <style>
   
-  .container-filter-settings {
+    .container-filter-settings {
       display: grid;
       grid-template-columns: repeat(3, minmax(5rem, 15rem)) minmax(3rem, 10rem);
       margin-bottom: 1rem;

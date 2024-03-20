@@ -3,6 +3,7 @@
 
   import masc from "$functions/masc";
   import TdData from "$Components/TdData/TdData.svelte";
+  import FixErros from "./FixErrors/FixErros.svelte";
 
   export let negotiationByCode
   export let ListNegotiationCodes
@@ -86,6 +87,8 @@
 
 
 </script>
+
+<FixErros />
 
 <div class="container-filter-settings">
   <span class="filter-codigo">

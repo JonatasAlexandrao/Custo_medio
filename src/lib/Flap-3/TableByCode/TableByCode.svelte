@@ -22,6 +22,8 @@
 
   let tableHeaderCode = [ "Código", "Qtd", "Preço Médio", "Valor"]
 
+  let activeFixErrors = false
+
   function createListCode(list) {
 
     let arrayCode = []
@@ -87,8 +89,9 @@
 
 
 </script>
-
-<FixErros />
+{#if activeFixErrors} 
+  <FixErros listByCodes={negotiationByCode} tableHeaderCode={tableHeaderCode} bind:activeFixErrors={activeFixErrors}/>
+{/if}
 
 <div class="container-filter-settings">
   <span class="filter-codigo">
@@ -113,7 +116,7 @@
 
   <div>
     <button class="btn" on:click={cleanFilters}>Limpar</button>
-    <button class="btn -error">Corrigir Erros</button>
+    <button class="btn -error" on:click={() => {activeFixErrors=!activeFixErrors}}>Corrigir Erros</button>
   </div>
 
 </div>

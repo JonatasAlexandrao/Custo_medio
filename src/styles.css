@@ -35,6 +35,7 @@ input, button, select, textarea { font-family: inherit; font-size: inherit; }
 }
 
 body {
+  height: 100%;
   display: grid;
   grid-template-columns: minmax(20rem, 1fr);
   justify-items: center;

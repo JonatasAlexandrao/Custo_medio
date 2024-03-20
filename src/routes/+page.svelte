@@ -31,37 +31,44 @@
   
 </script>
 
-
-<Card title="Buscar Planilha" idName="flap-1">
-
-  <div class="search-file">
-
-    <label for="spreadsheet"> {text} </label>
-    <input type="file" on:change={readFile} bind:this={input} id="spreadsheet">
-    
-  </div>
-
-</Card>
-
-<Card title="Tabela de Geral" idName="flap-2">
-  <GeneralTable negotiationInfo={$NEGOTIATION} ListNegotiationCodes={$ListNegotiationCodes}/>
-</Card>
-
-<Card title="Tabela por Codigo" idName="flap-3">
-  <TableByCode negotiationByCode={$NEGOTIATION_BY_CODE} ListNegotiationCodes={$ListNegotiationCodes}/>
-</Card>
-
-<Card title="Informações por mês" idName="flap-4">
-  <InfoPerMonth negotiationInfo={$NEGOTIATION} />
-</Card>
-
-<Card title="Tabela DayTrade" idName="flap-5">
-  <TableDayTrade />
-</Card>
+<div class="container-tags">
+  <Card title="Buscar Planilha" idName="flap-1">
+  
+    <div class="search-file">
+  
+      <label for="spreadsheet"> {text} </label>
+      <input type="file" on:change={readFile} bind:this={input} id="spreadsheet">
+      
+    </div>
+  
+  </Card>
+  
+  <Card title="Tabela de Geral" idName="flap-2">
+    <GeneralTable negotiationInfo={$NEGOTIATION} ListNegotiationCodes={$ListNegotiationCodes}/>
+  </Card>
+  
+  <Card title="Tabela por Codigo" idName="flap-3">
+    <TableByCode negotiationByCode={$NEGOTIATION_BY_CODE} ListNegotiationCodes={$ListNegotiationCodes}/>
+  </Card>
+  
+  <Card title="Informações por mês" idName="flap-4">
+    <InfoPerMonth negotiationInfo={$NEGOTIATION} />
+  </Card>
+  
+  <Card title="Tabela DayTrade" idName="flap-5">
+    <TableDayTrade />
+  </Card>
+</div>
 
 <style>
   .search-file input{
     width: 90%;
+  }
+
+  .container-tags {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
   }
 </style>
 

@@ -20,7 +20,7 @@
   let codigoAcao = ""
   let instituicao = ""
 
-  let tableHeaderCode = [ "Código", "Qtd", "Preço Médio", "Valor"]
+  let tableHeaderCode = [ "Código", "Qtd", "Preço Médio", "Valor" ]
 
   let activeFixErrors = false
 

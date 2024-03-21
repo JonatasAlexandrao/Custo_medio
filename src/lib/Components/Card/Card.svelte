@@ -52,9 +52,6 @@
     justify-content: space-between;
     margin-bottom: 2rem;
     width: 100%;
-
-    /*display: grid;
-    grid-template-columns: auto auto;*/
   }
 
   .card-container .title > h2 {

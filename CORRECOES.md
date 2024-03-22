@@ -39,25 +39,16 @@
 
 # CORRIGIR
 
-[x] soma das Vendas ainda está somando os day trades
-******** Lucro do daytrade, quando a pessoa compra e vende em quantidades diferentes ainda não está certo
-
-[x] Remover os codigos com "F" no final e juntar com sua versão sem "F"
-[x] Depois de juntar os codigos ordenar por data
-
-[x] Fazer o preço médio por linha (lançamento) e salvar em um campo junto
-[x] Total atual também será necessário para facilitar 
-
-- Qtd parcial,
-- preço médio parcial
-- valor total parcial
-
 [] Testar se a formula está funcionando e os erros quando tiver mais vendas do que compras
 [] Refaturar os arquivos de formatInfo e formulas
 
 [] Verificar se o calculo de lucro por mês está fazendo a conta certa
 
 [x] Na tabela com o preço médio por um combo box por codigo, com o codigo selecionado a tabela some e em caixas de texto apresentar os valores importantes inclusive o texto para copiar para o IR
+
+
+---->>>> [] Erro na tabela por Codigo, os codigos com final F que não tem uma versão sem F estão aparecendo com F
+  - Isso parece estar dando um erro na hora de salvar a tabela de correçao de erros
 
 ----------------------------------------
 # Fazer

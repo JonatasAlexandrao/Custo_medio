@@ -1,20 +1,61 @@
 <script>
-  import TdData from "$Components/TdData/TdData.svelte";
+  import { NEGOTIATION } from '$store/store'
+  import formatInfo from "$functions/formatInfo";
   import masc from "$functions/masc";
 
   export let listByCodes = []
-  let tableHeaderCode = ["Código", "Qtd em Negativo", "Qtd", "Preço Médio", "Valor"]
   export let activeFixErrors = true
+  let tableHeaderCode = ["Código", "Qtd em Negativo", "Qtd", "Preço Médio", "Valor"]
  
   $: listNegativeCodes = listByCodes ? createListNegativeCodes() : []
+
+  //$: dataArray = listNegativeCodes ? createDataArray() : []
+  let dataArray = []
+  let tableInfo = []
 
   function createListNegativeCodes() {
     return listByCodes.filter((elem) => elem.quantidadeTotal < 0 )
   }
 
-  function closeButton() {
-    console.log(listNegativeCodes)
+  function populateDataArray() {
+    let newArray = []
+    const numRows = listNegativeCodes.length
+    const row = tableInfo.children
+
+    for (let index = 0; index < numRows; index++) {
+
+      newArray.push([])
+      const column = row[index].children
+
+      newArray[index].codigo = column[0].firstChild.value
+      newArray[index].quantidadeTotal = column[2].firstChild.value
+      newArray[index].precoMedio = column[3].firstChild.value
+      newArray[index].valorTotal = column[4].firstChild.value
+    }
+    return newArray
+  }
+
+  function closeButton() {   
     activeFixErrors = !activeFixErrors
+  }
+
+  function saveButton() {
+    
+    dataArray = populateDataArray()
+    console.log("dataArray", dataArray)
+
+    let data = $NEGOTIATION
+
+    dataArray.forEach(newData => {
+      data.push(newData)
+      let dataOrganized = formatInfo.sortListByPosition(data)
+      NEGOTIATION.set(dataOrganized)
+    });
+    
+    /*data.push(newData)
+    let dataOrganized = formatInfo.sortListByPosition(data)
+    NEGOTIATION.set(dataOrganized)*/
+    
   }
 
 </script>
@@ -36,15 +77,14 @@
           {/each}
         </tr>
       </thead>
-      <tbody>
-        {#each listNegativeCodes as stock}
+      <tbody bind:this={tableInfo}>
+        {#each listNegativeCodes as stock, index}
         <tr>
-          <td>{stock.codigo}</td>
-          <td>{stock.quantidadeTotal}</td>
-          <td><input type="text"></td>
-          <td><input type="text"></td>
-          <td><input type="text"></td>
-
+          <td><input type="text" value={stock.codigo} disabled></td>
+          <td><input type="text" value={stock.quantidadeTotal} disabled></td>
+          <td><input type="text" value=0></td>
+          <td><input type="text" value=0></td>
+          <td><input type="text" value=0></td>
         </tr>
         {/each}
           
@@ -54,7 +94,7 @@
 
     <div class="container-save">
       <span>Salvar todos os valores?</span>
-      <button class="btn-save">Salvar</button>
+      <button class="btn-save" on:click={saveButton}>Salvar</button>
     </div>
 
   </div>

@@ -9,30 +9,41 @@
  
   $: listNegativeCodes = listByCodes ? createListNegativeCodes() : []
 
-  //$: dataArray = listNegativeCodes ? createDataArray() : []
-  let dataArray = []
   let tableInfo = []
+  //let position = 0
 
   function createListNegativeCodes() {
     return listByCodes.filter((elem) => elem.quantidadeTotal < 0 )
   }
 
   function populateDataArray() {
-    let newArray = []
+    let addArray = []
     const numRows = listNegativeCodes.length
     const row = tableInfo.children
 
     for (let index = 0; index < numRows; index++) {
 
-      newArray.push([])
       const column = row[index].children
 
-      newArray[index].codigo = column[0].firstChild.value
-      newArray[index].quantidadeTotal = column[2].firstChild.value
-      newArray[index].precoMedio = column[3].firstChild.value
-      newArray[index].valorTotal = column[4].firstChild.value
+      const newData = {    
+        posicao: -1,
+        dia: "",
+        mes: "",
+        ano: "",
+        data: "",
+        codigoNegociacao: column[0].firstChild.value,
+        instituicao: "",
+        mercado: "",
+        prazoVencimento: "",
+        preco: column[3].firstChild.value,
+        quantidade: column[2].firstChild.value,
+        tipoMovimentacao: "Ano Anterior",
+        valor: column[4].firstChild.value
+      }
+      addArray.push(newData)
+
     }
-    return newArray
+    return addArray
   }
 
   function closeButton() {   
@@ -41,21 +52,39 @@
 
   function saveButton() {
     
-    dataArray = populateDataArray()
-    console.log("dataArray", dataArray)
-
+    let dataArray = populateDataArray()
     let data = $NEGOTIATION
 
     dataArray.forEach(newData => {
-      data.push(newData)
-      let dataOrganized = formatInfo.sortListByPosition(data)
-      NEGOTIATION.set(dataOrganized)
+
+      const validCode = newData.codigoNegociacao != ""
+      const validQuantity = newData.quantidade > 0
+      const validPrice = newData.preco > 0
+      const validValue = newData.valor > 0
+
+      const okCanSave = validCode && validQuantity && validPrice && validValue
+
+      let list = data.filter(elem => {
+        const codeEqual = elem.codigoNegociacao == newData.codigoNegociacao || elem.codigoNegociacao == newData.codigoNegociacao + "F"
+
+        return codeEqual ? elem : ""
+      })
+
+      const lowestPosition = list.reduce((pos, elem) => {
+        return pos < elem.posicao ? pos : elem.posicao
+      }, list[0].posicao)
+
+       newData.posicao = lowestPosition - 0.01
+
+
+      if(okCanSave) {
+        data.push(newData)
+        const dataOrganized = formatInfo.sortListByPosition(data)
+        NEGOTIATION.set(dataOrganized)
+      }
+
     });
-    
-    /*data.push(newData)
-    let dataOrganized = formatInfo.sortListByPosition(data)
-    NEGOTIATION.set(dataOrganized)*/
-    
+
   }
 
 </script>

@@ -47,6 +47,7 @@ function formatNegotiations2(array) {
 
 function joinEqualCodes(array) {
   let list = array
+
   const newList = list.filter(element => {
     let test = true
     const codeNoF = element.codigo.replace(/.$/, '');
@@ -59,6 +60,9 @@ function joinEqualCodes(array) {
           test = false
         }
       })
+
+      element.codigo = element.codigo.slice(0, -1)
+      
     } 
     return test
 

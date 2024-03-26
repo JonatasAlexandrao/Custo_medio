@@ -47,7 +47,7 @@
 [x] Na tabela com o preço médio por um combo box por codigo, com o codigo selecionado a tabela some e em caixas de texto apresentar os valores importantes inclusive o texto para copiar para o IR
 
 
----->>>> [] Erro na tabela por Codigo, os codigos com final F que não tem uma versão sem F estão aparecendo com F
+---->>>> [x] Erro na tabela por Codigo, os codigos com final F que não tem uma versão sem F estão aparecendo com F
   - Isso parece estar dando um erro na hora de salvar a tabela de correçao de erros
 
 ----------------------------------------
@@ -67,3 +67,6 @@
   [x] Em Tabela por Codigo
     [x] No combo box de código poderia aparecer somente os códigos de ações q tenham quantidade positiva.
     
+
+  [] Criar um input q receba mascaras
+  [] criar um componente para dar alerta de erro dos inputs

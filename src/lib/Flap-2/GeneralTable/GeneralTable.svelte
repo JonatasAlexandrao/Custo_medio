@@ -116,12 +116,12 @@
   
   const allFilled = () => {
     let isValid = false
-    if (select_typeEntry === "") console.log("Selecione o Tipo")
-    else if (txtPosition === "") console.log("Digite a Posição")
-    else if (txtCode === "") console.log("Digite o Codigo da Ação")
-    else if (txtQtd === "") console.log("Digite a Quantidade")
-    else if (txtPrice === "") console.log("Digite o Preço")
-    else if (txtValue === "") console.log("Digite o Valor Total")
+    if (select_typeEntry) console.log("Selecione o Tipo")
+    else if (txtPosition) console.log("Digite a Posição")
+    else if (txtCode) console.log("Digite o Codigo da Ação")
+    else if (txtQtd) console.log("Digite a Quantidade")
+    else if (txtPrice) console.log("Digite o Preço")
+    else if (txtValue) console.log("Digite o Valor Total")
     else isValid = true
   
     return isValid

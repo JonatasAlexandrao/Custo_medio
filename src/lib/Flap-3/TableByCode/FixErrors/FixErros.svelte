@@ -6,14 +6,22 @@
   export let listByCodes = []
   export let activeFixErrors = true
   let tableHeaderCode = ["Código", "Qtd em Negativo", "Qtd", "Preço Médio", "Valor"]
+
+  let inputQtd = []
+  let inputPrice = []
+  let inputValue = []
+
+  let tableInfo = []
  
   $: listNegativeCodes = listByCodes ? createListNegativeCodes() : []
 
-  let tableInfo = []
-  //let position = 0
 
   function createListNegativeCodes() {
     return listByCodes.filter((elem) => elem.quantidadeTotal < 0 )
+  }
+
+  function closeButton() {   
+    activeFixErrors = !activeFixErrors
   }
 
   function populateDataArray() {
@@ -43,11 +51,8 @@
       addArray.push(newData)
 
     }
-    return addArray
-  }
 
-  function closeButton() {   
-    activeFixErrors = !activeFixErrors
+    return addArray
   }
 
   function saveButton() {
@@ -77,14 +82,42 @@
        newData.posicao = lowestPosition - 0.01
 
 
-      if(okCanSave) {
+      data.push(newData)
+      const dataOrganized = formatInfo.sortListByPosition(data)
+      NEGOTIATION.set(dataOrganized)
+
+
+      clearInput()
+
+      /*if(okCanSave) {
         data.push(newData)
         const dataOrganized = formatInfo.sortListByPosition(data)
         NEGOTIATION.set(dataOrganized)
       }
+      else if (!validQuantity) {
+        console.log(`Falta quantidade da ação ${newData.codigoNegociacao}`)
+      }
+      else if (!validPrice) {
+        console.log(`Falta preço médio da ação ${newData.codigoNegociacao}`)
+      }
+      else if (!validValue) {
+        console.log(`Falta valor da ação ${newData.codigoNegociacao}`)
+      }*/
 
     });
 
+  }
+
+  function clearInput() {
+
+    const numRows = listNegativeCodes.length
+    for (let index = 0; index < numRows; index++) {
+      inputQtd[index] = 0
+      inputPrice[index] = 0
+      inputValue[index] = 0
+    }
+
+    
   }
 
 </script>
@@ -111,9 +144,9 @@
         <tr>
           <td><input type="text" value={stock.codigo} disabled></td>
           <td><input type="text" value={stock.quantidadeTotal} disabled></td>
-          <td><input type="text" value=0></td>
-          <td><input type="text" value=0></td>
-          <td><input type="text" value=0></td>
+          <td><input type="text" bind:value={inputQtd[index]} on:input={masc.inputNum(inputQtd[index])}></td>
+          <td><input type="text" bind:value={inputPrice[index]}></td>
+          <td><input type="text" bind:value={inputValue[index]}></td>
         </tr>
         {/each}
           

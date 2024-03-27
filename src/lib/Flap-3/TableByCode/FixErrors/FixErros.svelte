@@ -1,7 +1,9 @@
 <script>
+  
   import { NEGOTIATION } from '$store/store'
   import formatInfo from "$functions/formatInfo";
-  import masc from "$functions/masc";
+
+  import InputBox from '$Components/InputBox/InputBox.svelte';
 
   export let listByCodes = []
   export let activeFixErrors = true
@@ -82,17 +84,17 @@
        newData.posicao = lowestPosition - 0.01
 
 
-      data.push(newData)
+      /*data.push(newData)
       const dataOrganized = formatInfo.sortListByPosition(data)
-      NEGOTIATION.set(dataOrganized)
+      NEGOTIATION.set(dataOrganized)*/
 
+      //console.log("34243",newData)
 
-      clearInput()
-
-      /*if(okCanSave) {
+      if(okCanSave) {
         data.push(newData)
         const dataOrganized = formatInfo.sortListByPosition(data)
         NEGOTIATION.set(dataOrganized)
+        clearInput()
       }
       else if (!validQuantity) {
         console.log(`Falta quantidade da ação ${newData.codigoNegociacao}`)
@@ -102,7 +104,9 @@
       }
       else if (!validValue) {
         console.log(`Falta valor da ação ${newData.codigoNegociacao}`)
-      }*/
+      }
+
+      
 
     });
 
@@ -142,11 +146,13 @@
       <tbody bind:this={tableInfo}>
         {#each listNegativeCodes as stock, index}
         <tr>
-          <td><input type="text" value={stock.codigo} disabled></td>
-          <td><input type="text" value={stock.quantidadeTotal} disabled></td>
-          <td><input type="text" bind:value={inputQtd[index]} on:input={masc.inputNum(inputQtd[index])}></td>
-          <td><input type="text" bind:value={inputPrice[index]}></td>
-          <td><input type="text" bind:value={inputValue[index]}></td>
+          <!-- <td><input type="text" value={stock.codigo} disabled></td> -->
+          <!-- <td><input type="text" value={stock.quantidadeTotal} disabled></td> -->
+          <td><InputBox value={stock.codigo} className="code" /></td>
+          <td><InputBox value={stock.quantidadeTotal} className="negative-qtd" /></td>
+          <td><InputBox className="qtd" typeMask="num"/></td>
+          <td><InputBox className="price"  typeMask="currency"/></td>
+          <td><InputBox className="value"  typeMask="currency"/></td>
         </tr>
         {/each}
           

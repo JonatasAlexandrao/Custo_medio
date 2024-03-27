@@ -1,6 +1,6 @@
 <script>
 
-  import masc from "$functions/masc";
+  import mask from "$functions/mask";
 
   export let stock
 
@@ -17,7 +17,7 @@
   <div class="table-title-daytrade">
     <span>{stock.codigo}</span>
     <span>{stock.data}</span>
-    <span class="price"> Lucro: {masc.realCurrency(stock.lucro)} </span>
+    <span class="price"> Lucro: {mask.realCurrency(stock.lucro)} </span>
     <button class="btn-On-Off" on:click={handleClick}>{buttonText}</button>
   </div>
   
@@ -34,16 +34,16 @@
     <tbody>
       <tr>          
         <td>{stock.dados[0].tipoMovimentacao}</td>
-        <td>{masc.realCurrency(stock.dados[0].preco)}</td>
+        <td>{mask.realCurrency(stock.dados[0].preco)}</td>
         <td>{stock.dados[0].quantidade}</td>
-        <td>{masc.realCurrency(stock.dados[0].valor)}</td>  
+        <td>{mask.realCurrency(stock.dados[0].valor)}</td>  
       </tr>
   
       <tr>
         <td>{stock.dados[1].tipoMovimentacao}</td>
-        <td>{masc.realCurrency(stock.dados[1].preco)}</td>
+        <td>{mask.realCurrency(stock.dados[1].preco)}</td>
         <td>{stock.dados[1].quantidade}</td>
-        <td>{masc.realCurrency(stock.dados[1].valor)}</td>
+        <td>{mask.realCurrency(stock.dados[1].valor)}</td>
       </tr>
   
     </tbody>        

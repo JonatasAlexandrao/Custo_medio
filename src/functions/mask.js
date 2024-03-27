@@ -1,5 +1,5 @@
 
-const masc = {
+const mask = {
 
   realCurrency : (number) => {
     if(number) {   
@@ -76,9 +76,10 @@ const masc = {
 
   inputNum : (value) => {
 
+    if(value == "") { value = "0" }
     let num
     num = value.replace(/[^0-9]/g, '')
-    num = num.replace(/(0)(\d)/g, '$2')
+    num = num.replace(/(^0)(\d)/g, '$2')
     return num
 
   }
@@ -86,4 +87,4 @@ const masc = {
 
 }
 
-export default masc 
+export default mask

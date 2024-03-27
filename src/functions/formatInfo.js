@@ -1,5 +1,5 @@
 
-import masc from "./masc";
+import mask from "$functions/mask";
 
 function formatNegotiations2(array) {
   let list = []
@@ -37,7 +37,7 @@ function formatNegotiations2(array) {
   });
 
   /*array.forEach(el => {
-    el.data = masc.formatDate(el.data)
+    el.data = mask.formatDate(el.data)
   })*/
   
 

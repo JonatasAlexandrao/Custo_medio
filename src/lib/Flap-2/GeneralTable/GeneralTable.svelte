@@ -3,7 +3,7 @@
 
   import { NEGOTIATION } from '$store/store'
   import formatInfo from "$functions/formatInfo";
-  import masc from "$functions/masc";
+  import mask from "$functions/mask";
   import SelectBox from '$Components/SelectBox/SelectBox.svelte';
   export let negotiationInfo
   export let ListNegotiationCodes
@@ -340,8 +340,8 @@
               <td>{data.instituicao}</td> 
               <td>{data.codigoNegociacao}</td> 
               <td>{data.quantidade}</td> 
-              <td>{masc.realCurrency(data.preco)}</td> 
-              <td>{masc.realCurrency(data.valor)}</td>
+              <td>{mask.realCurrency(data.preco)}</td> 
+              <td>{mask.realCurrency(data.valor)}</td>
             </tr>
             {/each}
           

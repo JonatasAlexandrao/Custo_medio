@@ -1,6 +1,6 @@
 <script>
 
-  import masc from "$functions/masc";
+  import mask from "$functions/mask";
   import TdData from "$Components/TdData/TdData.svelte";
   import { TOTAL_SALES_MONTH, TOTAL_PROFIT_MONTH, DAY_TRADE_PER_MONTH } from '$store/store'
 
@@ -40,9 +40,9 @@
       {#each months as month, index}
         <tr>
           <TdData data={month}/>
-          <TdData data={masc.realCurrency(salesMonth[index])}/>
-          <TdData data={masc.realCurrency(profitMonth[index])}/>
-          <TdData data={masc.realCurrency(profitDayTrade[index])}/>
+          <TdData data={mask.realCurrency(salesMonth[index])}/>
+          <TdData data={mask.realCurrency(profitMonth[index])}/>
+          <TdData data={mask.realCurrency(profitDayTrade[index])}/>
         </tr>
       {/each}
       

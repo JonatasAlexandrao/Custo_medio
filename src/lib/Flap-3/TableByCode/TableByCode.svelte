@@ -1,7 +1,7 @@
 
 <script>
 
-  import masc from "$functions/masc";
+  import mask from "$functions/mask";
   import TdData from "$Components/TdData/TdData.svelte";
   import FixErros from "./FixErrors/FixErros.svelte";
 
@@ -136,8 +136,8 @@
       <tr>
         <TdData data={stock.codigo}/>
         <TdData data={stock.quantidadeTotal}/>
-        <TdData data={masc.realCurrency(stock.precoMedio)}/>
-        <TdData data={masc.realCurrency(stock.valorTotal)}/>
+        <TdData data={mask.realCurrency(stock.precoMedio)}/>
+        <TdData data={mask.realCurrency(stock.valorTotal)}/>
       </tr>
       {/each}
         

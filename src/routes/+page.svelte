@@ -38,7 +38,7 @@
   
       <label for="spreadsheet"> {text} </label>
       <input type="file" on:change={readFile} bind:this={input} id="spreadsheet">
-      
+      <button on:click={console.log($NEGOTIATION)}>teste</button>
     </div>
   
   </Card>

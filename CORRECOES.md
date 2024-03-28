@@ -68,5 +68,5 @@
     [x] No combo box de código poderia aparecer somente os códigos de ações q tenham quantidade positiva.
     
 
-  [] Criar um input q receba mascaras
+  [x] Criar um input q receba mascaras
   [] criar um componente para dar alerta de erro dos inputs

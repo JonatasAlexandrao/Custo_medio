@@ -1,77 +1,4 @@
 
-import mask from "$functions/mask";
-
-function formatNegotiations2(array) {
-  let list = []
-  array.forEach(element => {
-    list.push(element.codigoNegociacao)
-  });
-
-
-  list = [ ... new Set (list)]
-  //ordem alfabetica
-  list = list.sort(Intl.Collator().compare)
-  
-  const uniqList = [ ... new Set (list)]
-
-  let newList = []
-
-  uniqList.forEach(code => {
-  newList.push({
-      codigo: code,
-      precoMedio: 0,
-      quantidadeTotal: 0,
-      valorTotal: 0,
-      acoesAntigas: [],
-      dados: []
-    })
-  });
-
-
-  array.forEach((data) => {
-    newList.forEach(el => {
-      if(data.codigoNegociacao == el.codigo) {
-        el.dados.push(data)
-      }
-    });
-  });
-
-  /*array.forEach(el => {
-    el.data = mask.formatDate(el.data)
-  })*/
-  
-
-  //return formatNegotiations3(newList) 
-  return newList
-}
-
-function joinEqualCodes(array) {
-  let list = array
-
-  const newList = list.filter(element => {
-    let test = true
-    const codeNoF = element.codigo.replace(/.$/, '');
-
-    if(element.codigo.substr(-1) == "F"){
-      
-      list.forEach(elem => {
-        if(elem.codigo === codeNoF) {     
-          elem.dados = [...elem.dados, ... element.dados]
-          test = false
-        }
-      })
-
-      element.codigo = element.codigo.slice(0, -1)
-      
-    } 
-    return test
-
-  })
-
-  return newList
-}
-
-
 function sortCodeListByPosition(array) {
     
   let list = array
@@ -83,7 +10,18 @@ function sortCodeListByPosition(array) {
   return list
 }
 
+function removeFFromCode(array) {
+  let list = array
 
+  list.forEach(element => {
+    if(element.codigoNegociacao.substr(-1) == "F"){
+      element.codigoNegociacao = element.codigoNegociacao.slice(0, -1)
+    }
+  });
+
+  return list
+
+}
 
 
 const formatInfo = {
@@ -154,9 +92,12 @@ const formatInfo = {
       } 
     });
 
-    list = formatInfo.sortListByPosition(list)
+    let newList
 
-    return list
+    newList = removeFFromCode(list)
+    newList = formatInfo.sortListByPosition(newList)
+
+    return newList
   },
 
   negotiationsByCode: (array) => {
@@ -203,7 +144,6 @@ const formatInfo = {
       });
     });
   
-    newList = joinEqualCodes(newList)
     newList = sortCodeListByPosition(newList)
 
     return newList

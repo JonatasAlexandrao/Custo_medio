@@ -144,15 +144,23 @@
         </tr>
       </thead>
       <tbody bind:this={tableInfo}>
-        {#each listNegativeCodes as stock, index}
+        {#each listNegativeCodes as stock}
         <tr>
-          <!-- <td><input type="text" value={stock.codigo} disabled></td> -->
-          <!-- <td><input type="text" value={stock.quantidadeTotal} disabled></td> -->
-          <td><InputBox value={stock.codigo} className="code" /></td>
-          <td><InputBox value={stock.quantidadeTotal} className="negative-qtd" /></td>
-          <td><InputBox className="qtd" typeMask="num"/></td>
-          <td><InputBox className="price"  typeMask="currency"/></td>
-          <td><InputBox className="value"  typeMask="currency"/></td>
+          <td>
+            <InputBox value={stock.codigo} className="code" disabled={true}/>
+          </td>
+          <td>
+            <InputBox value={stock.quantidadeTotal} className="negative-qtd" disabled={true}/>
+          </td>
+          <td>
+            <InputBox className="qtd" typeMask="num"/>
+          </td>
+          <td>
+            <InputBox className="price"  typeMask="currency"/>
+          </td>
+          <td>
+            <InputBox className="value"  typeMask="currency"/>
+          </td>
         </tr>
         {/each}
           
@@ -212,13 +220,7 @@
   }
 
   .container-table-base.-codes-table .table-base tr{
-    grid-template-columns: 
-      minmax(10rem, 14rem) /*1 Posicao*/
-      minmax(10rem, 14rem) /*1 Posicao*/
-      minmax(10rem, 14rem) /*1 Posicao*/
-      minmax(10rem, 14rem) /*1 Posicao*/
-      minmax(10rem, 14rem) /*1 Posicao*/
-    ;
+    grid-template-columns: repeat(5, minmax(10rem, 14rem));
   }
 
   .btn-close {

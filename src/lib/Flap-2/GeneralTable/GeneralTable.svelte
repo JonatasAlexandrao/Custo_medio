@@ -75,7 +75,7 @@
   
   function filterInfo() {
     
-    console.log("testeeee", select_filterMovimentacao)
+    //console.log("select_filterMovimentacao", select_filterMovimentacao)
     let list = negotiationInfo
   
     if(select_filterMovimentacao) {
@@ -116,12 +116,13 @@
   
   const allFilled = () => {
     let isValid = false
-    if (select_typeEntry) console.log("Selecione o Tipo")
-    else if (txtPosition) console.log("Digite a Posição")
-    else if (txtCode) console.log("Digite o Codigo da Ação")
-    else if (txtQtd) console.log("Digite a Quantidade")
-    else if (txtPrice) console.log("Digite o Preço")
-    else if (txtValue) console.log("Digite o Valor Total")
+    console.log("select_typeEntry", txtPosition)
+    if (select_typeEntry === "") console.log("Selecione o Tipo")
+    else if (txtPosition === "") console.log("Digite a Posição")
+    else if (txtCode === "") console.log("Digite o Codigo da Ação")
+    else if (txtQtd === "") console.log("Digite a Quantidade")
+    else if (txtPrice === "") console.log("Digite o Preço")
+    else if (txtValue === "") console.log("Digite o Valor Total")
     else isValid = true
   
     return isValid
@@ -188,7 +189,7 @@
   
         if(positionExiste) {
           position = parseFloat(position)
-          position = position + 0.01
+          position = position - 0.01
           add()
         }
         else{
